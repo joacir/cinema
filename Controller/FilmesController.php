@@ -13,17 +13,67 @@ class FilmesController extends AppController {
             array('Filme' => array('nome' => 'Star Wars', 'ano' => '1977', 'duracao' => '3:00', 'idioma' => 'Ingles')),
         );
  */  
-        $fields = array('Filme.nome', 'Filme.ano');
-        $order = array('Filme.ano' => 'desc');
+        $fields = array('Filme.id', 'Filme.nome', 'Filme.ano');
+        $order = array('Filme.nome' => 'asc');
         $group = array();
-        $conditions = array(
-            'Filme.ano BETWEEN ? AND ?' => array(1980, 2000),
-            'Filme.duracao !=' => '3:00' 
-        );
-//        $filmes = $this->Filme->find('all', compact('fields', 'order', 'conditions'));
-        $filmes = $this->Filme->findAllByDuracao('2:00');
+        $conditions = array();
+        $filmes = $this->Filme->find('all', compact('fields', 'order', 'conditions'));
 
         $this->set('filmes', $filmes);        
+    }
+
+    public function add() {
+        if (!empty($this->request->data)) {
+            $this->Filme->create();
+            if ($this->Filme->save($this->request->data)) {
+                $this->Flash->set('Filme gravado com sucesso!');
+                $this->redirect('/filmes');
+            }
+        }
+/*
+se tem informacao
+    receber informacoes
+    mandar pro modelo gravar
+        mensagem usuario 
+        redirecionar filmes
+senao
+    mostra formulario
+*/        
+    }
+
+    public function edit($id = null) {
+        if (!empty($this->request->data)) {
+            if ($this->Filme->save($this->request->data)) {
+                $this->Flash->set('Filme alterado com sucesso!');
+                $this->redirect('/filmes');
+            }
+        } else {
+            $fields = array('Filme.id', 'Filme.nome', 'Filme.duracao', 'Filme.idioma', 'Filme.ano');
+            $conditions = array('Filme.id' => $id);
+            $this->request->data = $this->Filme->find('first', compact('fields', 'conditions'));
+        }
+/*
+se tem informacao
+    receber informacoes
+    mandar pro modelo gravar
+        mensagem usuario 
+        redirecionar filmes
+senao
+    busca informacoes do id
+    mostra formulario
+*/        
+    }
+
+    public function view($id = null) {
+        $fields = array('Filme.id', 'Filme.nome', 'Filme.duracao', 'Filme.idioma', 'Filme.ano');
+        $conditions = array('Filme.id' => $id);
+        $this->request->data = $this->Filme->find('first', compact('fields', 'conditions'));
+    }
+
+    public function delete($id) {
+        $this->Filme->delete($id);
+        $this->Flash->set('Filme excluído com sucesso!');
+        $this->redirect('/filmes');
     }
 
 }
