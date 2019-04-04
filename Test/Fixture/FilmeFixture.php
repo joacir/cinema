@@ -6,7 +6,7 @@ class FilmeFixture extends CakeTestFixture {
 
     public function init() {
         $this->records = array(
-            array('nome' => 'Avengers', 'ano' => '2019', 'duracao' => '5:00', 'idioma' => 'Ingles')
+            array('nome' => 'Avengers', 'ano' => '2019', 'duracao' => '5:00', 'idioma' => 'Ingles', 'genero_id' => 1)
         );
         parent::init();
     }

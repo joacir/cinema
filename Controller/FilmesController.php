@@ -4,16 +4,7 @@ App::uses('AppController', 'Controller');
 class FilmesController extends AppController {
 
     public function index() {
-/*
-        $filmes = array(
-            array('Filme' => array('nome' => 'Avengers', 'ano' => '2019', 'duracao' => '5:00', 'idioma' => 'Ingles')),
-            array('Filme' => array('nome' => 'Rocky', 'ano' => '1979', 'duracao' => '3:00', 'idioma' => 'Ingles')),
-            array('Filme' => array('nome' => 'De volta para o futuro', 'ano' => '1986', 'duracao' => '2:00', 'idioma' => 'Ingles')),
-            array('Filme' => array('nome' => 'Esqueceram de mim', 'ano' => '1994', 'duracao' => '1:30', 'idioma' => 'Ingles')),
-            array('Filme' => array('nome' => 'Star Wars', 'ano' => '1977', 'duracao' => '3:00', 'idioma' => 'Ingles')),
-        );
- */  
-        $fields = array('Filme.id', 'Filme.nome', 'Filme.ano');
+        $fields = array('Filme.id', 'Filme.nome', 'Filme.ano', 'Genero.nome');
         $order = array('Filme.nome' => 'asc');
         $group = array();
         $conditions = array();
@@ -30,15 +21,9 @@ class FilmesController extends AppController {
                 $this->redirect('/filmes');
             }
         }
-/*
-se tem informacao
-    receber informacoes
-    mandar pro modelo gravar
-        mensagem usuario 
-        redirecionar filmes
-senao
-    mostra formulario
-*/        
+        $fields = array('Genero.id', 'Genero.nome');
+        $generos = $this->Filme->Genero->find('list', compact('fields'));
+        $this->set('generos', $generos);        
     }
 
     public function edit($id = null) {
@@ -48,20 +33,13 @@ senao
                 $this->redirect('/filmes');
             }
         } else {
-            $fields = array('Filme.id', 'Filme.nome', 'Filme.duracao', 'Filme.idioma', 'Filme.ano');
+            $fields = array('Filme.id', 'Filme.nome', 'Filme.duracao', 'Filme.idioma', 'Filme.ano', 'Filme.genero_id');
             $conditions = array('Filme.id' => $id);
             $this->request->data = $this->Filme->find('first', compact('fields', 'conditions'));
         }
-/*
-se tem informacao
-    receber informacoes
-    mandar pro modelo gravar
-        mensagem usuario 
-        redirecionar filmes
-senao
-    busca informacoes do id
-    mostra formulario
-*/        
+        $fields = array('Genero.id', 'Genero.nome');
+        $generos = $this->Filme->Genero->find('list', compact('fields'));
+        $this->set('generos', $generos);        
     }
 
     public function view($id = null) {

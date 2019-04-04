@@ -7,12 +7,13 @@ foreach ($filmes as $filme) {
     $detalhe[] = array(
         $viewLink, 
         $filme['Filme']['ano'],
+        $filme['Genero']['nome'],
         $editLink . ' ' . $deleteLink
     );
 }
 
 
-$titulos = array('Nome', 'Ano', '');
+$titulos = array('Nome', 'Ano', 'Gênero',  '');
 $header = $this->Html->tableHeaders($titulos);
 $body = $this->Html->tableCells($detalhe);
 $novoButton = $this->Html->link('Novo', '/filmes/add');
