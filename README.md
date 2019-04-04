@@ -1,6 +1,6 @@
 # Catálogo de Cinema
 
-App de apoio à Mentoria de Desenvolvimento de Webapps
+App de apoio desenvolvida durante a mentoria de desenvolvimento web utilizando o framework CakePHP.
 
 ## Pré requisito
 
