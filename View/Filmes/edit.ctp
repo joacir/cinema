@@ -12,6 +12,11 @@ $form .= $this->Form->input('Filme.genero_id', array(
     'type' => 'select', 
     'options' => $generos
 ));
+$form .= $this->Form->input('Ator.Ator', array(
+    'type' => 'select',
+    'multiple' => true, 
+    'options' => $ators
+));
 $form .= $this->Form->end('Gravar');
 $voltarLink = $this->Html->link('Voltar', '/filmes');
 

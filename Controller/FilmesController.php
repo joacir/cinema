@@ -23,7 +23,10 @@ class FilmesController extends AppController {
         }
         $fields = array('Genero.id', 'Genero.nome');
         $generos = $this->Filme->Genero->find('list', compact('fields'));
+        $fields = array('Ator.id', 'Ator.nome');
+        $ators = $this->Filme->Ator->find('list', compact('fields'));
         $this->set('generos', $generos);        
+        $this->set('ators', $ators);        
     }
 
     public function edit($id = null) {
@@ -39,7 +42,10 @@ class FilmesController extends AppController {
         }
         $fields = array('Genero.id', 'Genero.nome');
         $generos = $this->Filme->Genero->find('list', compact('fields'));
+        $fields = array('Ator.id', 'Ator.nome');
+        $ators = $this->Filme->Ator->find('list', compact('fields'));
         $this->set('generos', $generos);        
+        $this->set('ators', $ators);        
     }
 
     public function view($id = null) {
