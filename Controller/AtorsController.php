@@ -3,6 +3,8 @@ App::uses('AppController', 'Controller');
 
 class AtorsController extends AppController {
 
+    public $layout = 'bootstrap';
+
     public $paginate = array(
         'fields' => array('Ator.id', 'Ator.nome', 'Ator.nascimento'),
         'conditions' => array(),
@@ -11,13 +13,6 @@ class AtorsController extends AppController {
     );
 
     public function index() {
-/*
-        $fields = array('Ator.id', 'Ator.nome', 'Ator.nascimento');
-        $order = array('Ator.nome' => 'asc');
-        $group = array();
-        $conditions = array();
-        $ators = $this->Ator->find('all', compact('fields', 'order', 'conditions'));
-*/
         if ($this->request->is('post') && !empty($this->request->data['Ator']['nome'])) {
             $this->paginate['conditions']['Ator.nome LIKE'] = '%' .trim($this->request->data['Ator']['nome']) . '%';
         }

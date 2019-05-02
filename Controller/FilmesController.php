@@ -3,12 +3,29 @@ App::uses('AppController', 'Controller');
 
 class FilmesController extends AppController {
 
+    public $paginate = array(
+        'fields' => array('Filme.id', 'Filme.nome', 'Filme.ano', 'Genero.nome'),
+        'conditions' => array(),
+        'limit' => 10,
+        'order' => array('Filme.nome' => 'asc')    
+    );
+
     public function index() {
-        $fields = array('Filme.id', 'Filme.nome', 'Filme.ano', 'Genero.nome');
-        $order = array('Filme.nome' => 'asc');
-        $group = array();
-        $conditions = array();
-        $filmes = $this->Filme->find('all', compact('fields', 'order', 'conditions'));
+        if ($this->request->is('post') && !empty($this->request->data['Filme']['nome_or_idioma'])) {
+/*
+            $this->paginate['conditions'] = array(
+                'or' => array(
+                    'Filme.nome LIKE' => '%' .trim($this->request->data['Filme']['nome_or_idioma']) . '%',
+                    'Filme.idioma LIKE' => '%' . trim($this->request->data['Filme']['nome_or_idioma']) . '%'
+                )
+            );
+*/            
+            $this->paginate['conditions']['or'] = array(
+                'Filme.nome LIKE' => '%' .trim($this->request->data['Filme']['nome_or_idioma']) . '%',
+                'Filme.idioma LIKE' => '%' . trim($this->request->data['Filme']['nome_or_idioma']) . '%'
+            );
+        }
+        $filmes = $this->paginate();
 
         $this->set('filmes', $filmes);        
     }
@@ -23,8 +40,8 @@ class FilmesController extends AppController {
         }
         $fields = array('Genero.id', 'Genero.nome');
         $generos = $this->Filme->Genero->find('list', compact('fields'));
-        $fields = array('Ator.id', 'Ator.nome');
-        $ators = $this->Filme->Ator->find('list', compact('fields'));
+        $fields = array('Filme.id', 'Filme.nome');
+        $ators = $this->Filme->Filme->find('list', compact('fields'));
         $this->set('generos', $generos);        
         $this->set('ators', $ators);        
     }
@@ -42,8 +59,8 @@ class FilmesController extends AppController {
         }
         $fields = array('Genero.id', 'Genero.nome');
         $generos = $this->Filme->Genero->find('list', compact('fields'));
-        $fields = array('Ator.id', 'Ator.nome');
-        $ators = $this->Filme->Ator->find('list', compact('fields'));
+        $fields = array('Filme.id', 'Filme.nome');
+        $ators = $this->Filme->Filme->find('list', compact('fields'));
         $this->set('generos', $generos);        
         $this->set('ators', $ators);        
     }

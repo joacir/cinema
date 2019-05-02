@@ -14,7 +14,7 @@ class Critica extends AppModel {
         ),
         'avaliacao' => array(
             'notBlank' => array('rule' => 'notBlank', 'message' => 'Informe a avaliação'),
-            'range' => array('rule' => array('range', 1, 5), 'message' => 'Informe uma avaliação de 1 á 5')
+            'range' => array('rule' => array('range', 0, 6), 'message' => 'Informe uma avaliação de 1 á 5')
         ),
         'data_avaliacao' => array(
             'notBlank' => array('rule' => 'notBlank', 'message' => 'Informe a data de avaliação'),
