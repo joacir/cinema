@@ -3,13 +3,22 @@ App::uses('AppController', 'Controller');
 
 class CriticasController extends AppController {
 
-    public function index() {
-        $fields = array('Critica.id', 'Critica.nome', 'Critica.avaliacao', 'Critica.data_avaliacao', 'Filme.nome');
-        $order = array('Critica.nome' => 'asc');
-        $group = array();
-        $conditions = array();
-        $criticas = $this->Critica->find('all', compact('fields', 'order', 'conditions'));
+    public $layout = 'bootstrap';
+    public $helpers = array('Js' => array('Jquery')); 
+    public $components = array('RequestHandler');
 
+    public $paginate = array(
+        'fields' => array('Critica.id', 'Critica.nome', 'Critica.avaliacao', 'Critica.data_avaliacao', 'Filme.nome'),
+        'conditions' => array(),
+        'limit' => 10,        
+        'order' => array('Critica.nome' => 'asc')    
+    );
+
+    public function index() {
+        if ($this->request->is('post') && !empty($this->request->data['Critica']['nome'])) {
+            $this->paginate['conditions']['Critica.nome LIKE'] = '%' .trim($this->request->data['Critica']['nome']) . '%';
+        }
+        $criticas = $this->paginate();
         $this->set('criticas', $criticas);        
     }
 
@@ -17,7 +26,7 @@ class CriticasController extends AppController {
         if (!empty($this->request->data)) {
             $this->Critica->create();
             if ($this->Critica->save($this->request->data)) {
-                $this->Flash->set('Crítica gravada com sucesso!');
+                $this->Flash->bootstrap('Crítica gravada com sucesso!', array('key' => 'success'));
                 $this->redirect('/criticas');
             }
         }
@@ -27,7 +36,7 @@ class CriticasController extends AppController {
     public function edit($id = null) {
         if (!empty($this->request->data)) {
             if ($this->Critica->save($this->request->data)) {
-                $this->Flash->set('Crítica alterada com sucesso!');
+                $this->Flash->bootstrap('Crítica alterada com sucesso!', array('key' => 'success'));
                 $this->redirect('/criticas');
             }
         } else {
@@ -54,7 +63,7 @@ class CriticasController extends AppController {
 
     public function delete($id) {
         $this->Critica->delete($id);
-        $this->Flash->set('Crítica excluída com sucesso!');
+        $this->Flash->bootstrap('Crítica excluída com sucesso!', array('key' => 'warning'));
         $this->redirect('/criticas');
     }
 

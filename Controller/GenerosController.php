@@ -3,13 +3,22 @@ App::uses('AppController', 'Controller');
 
 class GenerosController extends AppController {
 
-    public function index() {
-        $fields = array('Genero.id', 'Genero.nome');
-        $order = array('Genero.nome' => 'asc');
-        $group = array();
-        $conditions = array();
-        $generos = $this->Genero->find('all', compact('fields', 'order', 'conditions'));
+    public $layout = 'bootstrap';
+    public $helpers = array('Js' => array('Jquery')); 
+    public $components = array('RequestHandler');
 
+    public $paginate = array(
+        'fields' => array('Genero.id', 'Genero.nome'),
+        'conditions' => array(),
+        'limit' => 10,
+        'order' => array('Genero.nome' => 'asc')    
+    );
+
+    public function index() {
+        if ($this->request->is('post') && !empty($this->request->data['Genero']['nome'])) {
+            $this->paginate['conditions']['Genero.nome LIKE'] = '%' .trim($this->request->data['Genero']['nome']) . '%';
+        }
+        $generos = $this->paginate();
         $this->set('generos', $generos);        
     }
 
@@ -17,7 +26,7 @@ class GenerosController extends AppController {
         if (!empty($this->request->data)) {
             $this->Genero->create();
             if ($this->Genero->save($this->request->data)) {
-                $this->Flash->set('Gênero gravado com sucesso!');
+                $this->Flash->bootstrap('Gênero gravado com sucesso!', array('key' => 'success'));
                 $this->redirect('/generos');
             }
         }
@@ -26,7 +35,7 @@ class GenerosController extends AppController {
     public function edit($id = null) {
         if (!empty($this->request->data)) {
             if ($this->Genero->save($this->request->data)) {
-                $this->Flash->set('Gênero alterado com sucesso!');
+                $this->Flash->bootstrap('Gênero alterado com sucesso!', array('key' => 'success'));
                 $this->redirect('/generos');
             }
         } else {
@@ -44,7 +53,7 @@ class GenerosController extends AppController {
 
     public function delete($id) {
         $this->Genero->delete($id);
-        $this->Flash->set('Gênero excluído com sucesso!');
+        $this->Flash->bootstrap('Gênero excluído com sucesso!', array('key' => 'success'));
         $this->redirect('/generos');
     }
 

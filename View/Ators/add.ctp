@@ -24,12 +24,16 @@ $form .= $this->Form->input('Filme.Filme', array(
     'multiple' => true,
     'options' => $filmes
 ));
-$form .= $this->Form->button('Gravar', array('type' => 'submit', 'class' => 'btn btn-success'));
-$form .= $this->Html->link('Voltar', '/ators', array('class' => 'btn btn-secondary ml-3'));
+$form .= $this->Js->submit('Gravar', array('class' => 'btn btn-success', 'div' => false, 'update' => '#content'));
+$form .= $this->Js->link('Voltar', '/ators', array('class' => 'btn btn-secondary ml-3', 'update' => '#content'));
 $form .= $this->Form->end();
 
 echo $this->Html->tag('h1', 'Novo Ator');
 echo $form;
 
 $this->Js->buffer('$(".form-error").addClass("is-invalid");');
-?>
+
+if ($this->request->is('ajax')) {
+    echo $this->Js->writeBuffer();
+}
+

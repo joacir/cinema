@@ -1,5 +1,5 @@
 <?php
-$novoButton = $this->Html->link('Novo', '/ators/add', array('class' => 'btn btn-success float-right'));
+$novoButton = $this->Js->link('Novo', '/ators/add', array('class' => 'btn btn-success float-right', 'update' => '#content'));
 
 $filtro = $this->Form->create('Ator', array('class' => 'form-inline'));
 $filtro .= $this->Form->input('Ator.nome', array(
@@ -9,18 +9,19 @@ $filtro .= $this->Form->input('Ator.nome', array(
     'div' => false,
     'placeholder' => 'Nome...'
 ));
-$filtro .= $this->Form->button('Filtrar', array('type' => 'submit', 'class' => 'btn btn-primary mb-2'));
+$filtro .= $this->Js->submit('Filtrar', array('class' => 'btn btn-primary mb-2', 'div' => false, 'update' => '#content'));
 $filtro .= $this->Form->end();
 
 $filtroBar = $this->Html->div('row mb-3 mt-3', 
     $this->Html->div('col-md-6', $filtro) . 
     $this->Html->div('col-md-6', $novoButton)
 );
+
 $detalhe = array();
 foreach ($ators as $ator) {
-    $editLink = $this->Html->link('Alterar', '/ators/edit/' . $ator['Ator']['id']);
-    $deleteLink = $this->Html->link('Excluir', '/ators/delete/' . $ator['Ator']['id']);
-    $viewLink = $this->Html->link($ator['Ator']['nome'], '/ators/view/' . $ator['Ator']['id']);
+    $editLink = $this->Js->link('Alterar', '/ators/edit/' . $ator['Ator']['id'], array('update' => '#content'));
+    $deleteLink = $this->Js->link('Excluir', '/ators/delete/' . $ator['Ator']['id'], array('update' => '#content', 'confirm' => 'Tem certeza?'));
+    $viewLink = $this->Js->link($ator['Ator']['nome'], '/ators/view/' . $ator['Ator']['id'], array('update' => '#content'));
     $detalhe[] = array(
         $viewLink, 
         date('d/m/Y', strtotime($ator['Ator']['nascimento'])),
@@ -33,6 +34,7 @@ $titulos = array($nomeSort, $nascimentoSort, '');
 $header = $this->Html->tag('thead', $this->Html->tableHeaders($titulos), array('class' => 'thead-light'));
 $body = $this->Html->tableCells($detalhe);
 
+$this->Paginator->options(array('update' => '#content'));
 $links = array(
     $this->Paginator->first('Primeira', array('class' => 'page-link')),
     $this->Paginator->prev('Anterior', array('class' => 'page-link')),
@@ -49,8 +51,17 @@ $paginateBar = $this->Html->div('row',
     $this->Html->div('col-md-6', $paginateCount)
 );
 
+echo $this->Flash->render('warning'); 
+echo $this->Flash->render('success'); 
+
 echo $this->Html->tag('h1', 'Atores');
 echo $filtroBar;
 echo $this->Html->tag('table', $header . $body, array('class' => 'table'));
 echo $paginateBar;
-?>
+
+$this->Js->buffer('$(".nav-item").removeClass("active");');
+$this->Js->buffer('$(".nav-item a[href$=\'ators\']").addClass("active");');
+if ($this->request->is('ajax')) {
+    echo $this->Js->writeBuffer();
+}
+
