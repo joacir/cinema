@@ -9,8 +9,7 @@
  *
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @link          https://cakephp.org CakePHP(tm) Project
- * @package       app
- * @since         CakePHP(tm) v 0.10.0.1076
+ * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
