@@ -8,11 +8,13 @@ App de apoio desenvolvida durante a mentoria de desenvolvimento web utilizando o
 
 ## Como instalar
 
-Clone o projeto na pasta /xampp/public_html/: 
+1. Clone o projeto na pasta /xampp/public_html/: 
 
 ```
 git clone git@github.com:aelian-repo/cinema.git cinema
 ```
+
+2. Renomeie o arquivo `APP\config\app.default.php` para `APP\config\app.php`
 
 ## Crie o banco de dados
 
