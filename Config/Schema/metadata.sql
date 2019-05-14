@@ -70,3 +70,16 @@ CREATE TABLE `criticas` (
   KEY `critica_filme_fk` (`filme_id`),
   CONSTRAINT `critica_filme_fk` FOREIGN KEY (`filme_id`) REFERENCES `filmes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Structure for table "usuarios"
+#
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) DEFAULT NULL,
+  `login` varchar(20) DEFAULT NULL,
+  `senha` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

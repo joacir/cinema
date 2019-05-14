@@ -228,7 +228,13 @@ Configure::write('Config.language', 'pt_BR');
  * the cake shell command: cake schema create Sessions
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+/* configurar
+		'cookie' => 'cinema',
+        'timeout' =>  10,
+        'cookieTimeout' => 0,
+		'checkAgent' => false
+*/		
 	));
 
 /**

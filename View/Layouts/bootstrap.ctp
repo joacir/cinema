@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <?php echo $this->Html->link('Críticas', '/criticas', array('class' => 'nav-link')); ?>
                     </li>
+                    <li class="nav-item">
+                        <?php echo $this->Html->link('Usuários', '/usuarios', array('class' => 'nav-link')); ?>
+                    </li>
                 </ul>
             </div>
         </nav>
