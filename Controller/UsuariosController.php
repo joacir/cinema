@@ -7,6 +7,9 @@ class UsuariosController extends AppController {
     public $helpers = array('Js' => array('Jquery')); 
     public $components = array(
         'RequestHandler',
+/*
+        4 - Configurar Components
+
         'Auth' => array(
             'flash' => array('element' => 'bootstrap', 'params' => array('key' => 'warning'), 'key' => 'warning'),
             'authError' => 'Você não possui permissão para acessar essa operação.',
@@ -19,8 +22,17 @@ class UsuariosController extends AppController {
                     'fields' => array('username' => 'login', 'password' => 'senha'),
                     'passwordHasher' => array('className' => 'Simple', 'hashType' => 'sha256')
                 )
-            )
-        )    
+            ),
+
+            7 - Configurar Crud (Aplicar em todo App)
+            'authorize' => array('Crud' => array('userModel' => 'Usuario'))
+        ),  
+        
+
+        6 - Configurar ACL (shell)
+
+        'Acl'
+*/        
     );
 
     public $paginate = array(
@@ -73,14 +85,22 @@ class UsuariosController extends AppController {
         $this->redirect('/usuarios');
     }
 
+    /**
+     * 2 - crud/ação de login
+     */
     public function login() {
         $this->layout = 'login';
+  /*
+
+        5 - Autenticar
+
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Flash->bootstrap('Usuário ou senha incorretos', array('key' => 'danger'));
         }        
+*/        
     }
 
     public function logout() {

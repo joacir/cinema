@@ -229,7 +229,9 @@ Configure::write('Config.language', 'pt_BR');
  */
 	Configure::write('Session', array(
 		'defaults' => 'php',
-/* configurar
+/* 
+		1 - configurar session
+		
 		'cookie' => 'cinema',
         'timeout' =>  10,
         'cookieTimeout' => 0,

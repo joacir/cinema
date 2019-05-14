@@ -45,6 +45,9 @@ $paginateBar = $this->Html->div('row',
     $this->Html->div('col-md-6', $paginateCount)
 );
 
+echo $this->Flash->render('warning'); 
+echo $this->Flash->render('success'); 
+
 $titulos = array('Nome', '');
 $header = $this->Html->tag('thead', $this->Html->tableHeaders($titulos), array('class' => 'thead-light'));
 $body = $this->Html->tableCells($detalhe);
