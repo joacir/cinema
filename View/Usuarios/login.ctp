@@ -20,6 +20,7 @@ $form .= $this->Form->input('Usuario.senha', array(
 ));
 $form .= $this->Form->submit('Entrar', array('div' => false, 'class' => 'btn btn-success btn-lg btn-block mb-3'));
 $form .= $this->Flash->render('danger'); 
+$form .= $this->Flash->render('warning'); 
 $form .= $this->Form->end();
 
 echo $form;

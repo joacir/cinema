@@ -13,8 +13,6 @@ class Usuario extends AppModel {
             'isUnique' => array('rule' => 'isUnique', 'message' => 'Login já existe'),
         )
     );
-/*
-    3 - criptografar senha 
 
     public function beforeSave($options = array()) {
         if (!empty($this->data['Usuario']['senha'])) {
@@ -26,6 +24,6 @@ class Usuario extends AppModel {
 
         return true;
     }    
-*/
+
 }
 ?>

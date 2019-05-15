@@ -1,5 +1,8 @@
 <?php
-$novoButton = $this->Js->link('Novo', '/generos/add', array('class' => 'btn btn-success float-right', 'update' => '#content'));
+$novoButton = '';
+if ($temAddButton) {
+    $novoButton = $this->Js->link('Novo', '/generos/add', array('class' => 'btn btn-success float-right', 'update' => '#content'));
+}
 
 $filtro = $this->Form->create('Genero', array('class' => 'form-inline'));
 $filtro .= $this->Form->input('Genero.nome', array(

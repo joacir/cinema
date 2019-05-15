@@ -19,7 +19,10 @@ class GenerosController extends AppController {
             $this->paginate['conditions']['Genero.nome LIKE'] = '%' .trim($this->request->data['Genero']['nome']) . '%';
         }
         $generos = $this->paginate();
-        $this->set('generos', $generos);        
+        $this->set('generos', $generos);       
+        $user = $this->Auth->user(); 
+        $temAddButton = $this->Acl->check(array('Usuario' => $user), 'Generos', 'create');
+        $this->set('temAddButton', $temAddButton);
     }
 
     public function add() {
