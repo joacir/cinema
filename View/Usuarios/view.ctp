@@ -18,6 +18,14 @@ $form .=$this->Html->div('row',
         'class' => 'form-control'
     )) 
 );
+$form .= $this->Form->input('Usuario.aro_parent_id', array(
+    'div' => array('class' => 'form-group'),
+    'class' => 'form-control', 
+    'type' => 'select',
+    'options' => $aros,
+    'disabled' => true,
+));
+
 $form .= $this->Js->link('Voltar', '/usuarios', array('class' => 'btn btn-secondary', 'update' => '#content'));
 $form .= $this->Form->end();
 

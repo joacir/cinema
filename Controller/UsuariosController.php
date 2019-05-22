@@ -33,6 +33,11 @@ class UsuariosController extends AppController {
                 $this->redirect('/usuarios');
             }
         }
+        $aros = $this->Acl->Aro->find('list', [
+            'conditions' => ['Aro.parent_id IS NULL'], 
+            'fields' => ['Aro.id', 'Aro.alias']
+        ]);
+        $this->set('aros', $aros);
     }
 
     public function edit($id = null) {
@@ -42,16 +47,26 @@ class UsuariosController extends AppController {
                 $this->redirect('/usuarios');
             }
         } else {
-            $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.senha');
+            $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.aro_parent_id');
             $conditions = array('Usuario.id' => $id);
             $this->request->data = $this->Usuario->find('first', compact('fields', 'conditions'));
         }
-    }
+        $aros = $this->Acl->Aro->find('list', [
+            'conditions' => ['Aro.parent_id IS NULL'], 
+            'fields' => ['Aro.id', 'Aro.alias']
+        ]);
+        $this->set('aros', $aros);
+   }
 
     public function view($id = null) {
-        $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.senha');
+        $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.senha', 'Usuario.aro_parent_id');
         $conditions = array('Usuario.id' => $id);
         $this->request->data = $this->Usuario->find('first', compact('fields', 'conditions'));
+        $aros = $this->Acl->Aro->find('list', [
+            'conditions' => ['Aro.parent_id IS NULL'], 
+            'fields' => ['Aro.id', 'Aro.alias']
+        ]);
+        $this->set('aros', $aros);
     }
 
     public function delete($id) {

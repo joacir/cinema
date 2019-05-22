@@ -13,15 +13,15 @@ $form .=$this->Html->div('row',
         'div' => array('class' => 'form-group col-md-6'),
         'class' => 'form-control', 
         'error' => array('attributes' => array('class' => 'invalid-feedback'))    
-    )) .
-    $this->Form->input('Usuario.senha', array(
-        'required' => false,
-        'type' => 'password',
-        'div' => array('class' => 'form-group col-md-6'),
-        'class' => 'form-control', 
-        'error' => array('attributes' => array('class' => 'invalid-feedback'))    
     )) 
 );
+$form .= $this->Form->input('Usuario.aro_parent_id', array(
+    'div' => array('class' => 'form-group'),
+    'class' => 'form-control', 
+    'type' => 'select',
+    'options' => $aros,
+    'error' => array('attributes' => array('class' => 'invalid-feedback'))
+));
 $form .= $this->Js->submit('Gravar', array('div' => false, 'class' => 'btn btn-success', 'update' => '#content'));
 $form .= $this->Js->link('Voltar', '/usuarios', array('class' => 'btn btn-secondary ml-3', 'update' => '#content'));
 $form .= $this->Form->end();
