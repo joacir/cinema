@@ -14,20 +14,18 @@ $settings = array(
                 'border' => 1,
                 'fontStyle' => 'B',
                 array('cell' => array('text' => 'Nome')),
-                array('cell' => array('text' => 'Ano', 'lineWidth' => 20)),
-                array('cell' => array('text' => 'Gênero', 'lineWidth' => 40))
+                array('cell' => array('text' => 'Avaliação', 'lineWidth' => 30)),
             ))            
         ),
         'body' => array(
             array('line' => array(
                 'border' => 1,
-                array('cell' => array('fieldName' => 'Filme.nome')),
-                array('cell' => array('fieldName' => 'Filme.ano', 'lineWidth' => 20)),
-                array('cell' => array('fieldName' => 'Genero.nome', 'lineWidth' => 40)),
+                array('cell' => array('fieldName' => 'Critica.nome')),
+                array('cell' => array('fieldName' => 'Critica.avaliacao', 'lineWidth' => 30, 'align' => 'R')),
             ))
         ),
         'sumary' => array(
-            array('cell' => array('text' => 'Total de Filmes ==> [RECORD_COUNT]', 'fontStyle' => 'I', 'lineHeight' => 20)),
+            array('cell' => array('text' => 'Total de Críticas ==> [RECORD_COUNT]', 'fontStyle' => 'I', 'lineHeight' => 20)),
         ),
         'footer' => array(
             array('line' => array(                                
@@ -38,8 +36,8 @@ $settings = array(
             ))         
         )  
     ),
-    'records' => $filmes,
-    'header' => array('title' => 'Filmes Cadastrados')
+    'records' => $criticas,
+    'header' => array('title' => 'Críticas Cadastradas')
 );
 
 echo $this->Report->create($settings);

@@ -1,5 +1,6 @@
 <?php
 $novoButton = $this->Js->link('Novo', '/usuarios/add', array('class' => 'btn btn-success float-right', 'update' => '#content'));
+$reportButton = $this->Html->link('Imprimir', '/usuarios/report', array('class' => 'btn btn-secondary float-right mr-2', 'target' => '_blank'));
 
 $filtro = $this->Form->create('Usuario', array('class' => 'form-inline'));
 $filtro .= $this->Form->input('Usuario.nome', array(
@@ -14,7 +15,7 @@ $filtro .= $this->Form->end();
 
 $filtroBar = $this->Html->div('row mb-3 mt-3', 
     $this->Html->div('col-md-6', $filtro) . 
-    $this->Html->div('col-md-6', $novoButton)
+    $this->Html->div('col-md-6', $novoButton . $reportButton)
 );
 
 $detalhe = array();

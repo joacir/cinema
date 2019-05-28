@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 class FilmesController extends AppController {
 
     public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report', 'Pdf.Document'); 
+    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
     public $components = array('RequestHandler');
 
     public $paginate = array(

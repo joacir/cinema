@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 class GenerosController extends AppController {
 
     public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery')); 
+    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
     public $components = array('RequestHandler');
 
     public $paginate = array(
@@ -13,6 +13,10 @@ class GenerosController extends AppController {
         'limit' => 10,
         'order' => array('Genero.nome' => 'asc')    
     );
+
+    public function beforeFilter() {
+        $this->Auth->mapActions(['read' => ['report']]);
+    }
 
     public function index() {
         if ($this->request->is('post') && !empty($this->request->data['Genero']['nome'])) {
@@ -58,6 +62,14 @@ class GenerosController extends AppController {
         $this->Genero->delete($id);
         $this->Flash->bootstrap('Gênero excluído com sucesso!', array('key' => 'success'));
         $this->redirect('/generos');
+    }
+
+    public function report() {
+        $this->layout = false;
+        $this->response->type('pdf');
+        $fields = array('Genero.nome');
+        $generos = $this->Genero->find('all', compact('fields'));
+        $this->set('generos', $generos);
     }
 
 }

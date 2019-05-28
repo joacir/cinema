@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 class AtorsController extends AppController {
 
     public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery')); 
+    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
     public $components = array(
         'RequestHandler',
     );
@@ -15,6 +15,10 @@ class AtorsController extends AppController {
         'limit' => 10,        
         'order' => array('Ator.nome' => 'asc')    
     );
+
+    public function beforeFilter() {
+        $this->Auth->mapActions(['read' => ['report']]);
+    }
 
     public function index() {
         if ($this->request->is('post') && !empty($this->request->data['Ator']['nome'])) {
@@ -69,5 +73,14 @@ class AtorsController extends AppController {
         $this->Flash->bootstrap('Ator excluído com sucesso!', array('key' => 'warning'));
         $this->redirect('/ators');
     }
+
+    public function report() {
+        $this->layout = false;
+        $this->response->type('pdf');
+        $fields = array('Ator.nome', 'Ator.nascimento');
+        $ators = $this->Ator->find('all', compact('fields'));
+        $this->set('ators', $ators);
+    }
+
 
 }

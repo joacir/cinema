@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 class CriticasController extends AppController {
 
     public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery')); 
+    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
     public $components = array('RequestHandler');
 
     public $paginate = array(
@@ -13,6 +13,10 @@ class CriticasController extends AppController {
         'limit' => 10,        
         'order' => array('Critica.nome' => 'asc')    
     );
+
+    public function beforeFilter() {
+        $this->Auth->mapActions(['read' => ['report']]);
+    }
 
     public function index() {
         if ($this->request->is('post') && !empty($this->request->data['Critica']['nome'])) {
@@ -59,12 +63,21 @@ class CriticasController extends AppController {
             $critica['Critica']['data_validacao'] = date('d/m/Y', strtotime($critica['Critica']['data_validacao']));
         }
         $this->request->data = $critica;
-}
+    }
 
     public function delete($id) {
         $this->Critica->delete($id);
         $this->Flash->bootstrap('Crítica excluída com sucesso!', array('key' => 'warning'));
         $this->redirect('/criticas');
     }
+
+    public function report() {
+        $this->layout = false;
+        $this->response->type('pdf');
+        $fields = array('Critica.nome', 'Critica.avaliacao');
+        $criticas = $this->Critica->find('all', compact('fields'));
+        $this->set('criticas', $criticas);
+    }
+
 
 }

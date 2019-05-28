@@ -36,6 +36,9 @@
                     </li>
                 </ul>
             </div>
+            <?php 
+                echo $this->Html->link('sair', '/usuarios/logout', array('escape' => false, 'class' => 'btn btn-outline-light')); 
+            ?>
         </nav>
         <main role="main" class="container" id="content"> 
             <?php 
