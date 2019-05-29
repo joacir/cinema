@@ -3,12 +3,6 @@ App::uses('AppController', 'Controller');
 
 class AtorsController extends AppController {
 
-    public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
-    public $components = array(
-        'RequestHandler',
-    );
-
     public $paginate = array(
         'fields' => array('Ator.id', 'Ator.nome', 'Ator.nascimento'),
         'conditions' => array(),
@@ -16,71 +10,43 @@ class AtorsController extends AppController {
         'order' => array('Ator.nome' => 'asc')    
     );
 
-    public function beforeFilter() {
-        $this->Auth->mapActions(['read' => ['report']]);
-    }
-
-    public function index() {
-        if ($this->request->is('post') && !empty($this->request->data['Ator']['nome'])) {
-            $this->paginate['conditions']['Ator.nome LIKE'] = '%' .trim($this->request->data['Ator']['nome']) . '%';
+    public function setPaginateConditions() {
+        $nome = '';
+        if ($this->request->is('post')) {
+            $nome = $this->request->data['Ator']['nome'];
+            $this->Session->write('Ator.nome', $nome);
+        } else {
+            $nome = $this->Session->read('Ator.nome');
+            $this->request->data('Ator.nome', $nome);
         }
-        $ators = $this->paginate();
-        $this->set('ators', $ators);        
+        if (!empty($nome)) {
+            $this->paginate['conditions']['Ator.nome LIKE'] = '%' . trim($nome) . '%';
+        }
     }
 
     public function add() {
-        if (!empty($this->request->data)) {
-            $this->Ator->create();
-            if ($this->Ator->save($this->request->data)) {
-                $this->Flash->bootstrap('Ator gravado com sucesso!', array('key' => 'success'));
-                $this->redirect('/ators');
-            }
-        }
-        $this->set('filmes', $this->Ator->Filme->find('list', array('fields' => array('Filme.id', 'Filme.nome'))));
+        parent::add();
+        $this->setFilmes();
     }
 
     public function edit($id = null) {
-        if (!empty($this->request->data)) {
-            if ($this->Ator->save($this->request->data)) {
-                $this->Flash->bootstrap('Ator alterado com sucesso!', array('key' => 'success'));
-                $this->redirect('/ators');
-            }
-        } else {
-            $fields = array('Ator.id', 'Ator.nome', 'Ator.nascimento');
-            $conditions = array('Ator.id' => $id);
-            $ator = $this->Ator->find('first', compact('fields', 'conditions'));
-            if (!empty($ator['Ator']['nascimento'])) {
-                $ator['Ator']['nascimento'] = date('d/m/Y', strtotime($ator['Ator']['nascimento']));
-            }
-            $this->request->data = $ator;
-        }
-        $this->set('filmes', $this->Ator->Filme->find('list', array('fields' => array('Filme.id', 'Filme.nome'))));
+        parent::edit($id);
+        $this->setFilmes();
     }
 
-    public function view($id = null) {
+    public function getEditData($id) {
         $fields = array('Ator.id', 'Ator.nome', 'Ator.nascimento');
         $conditions = array('Ator.id' => $id);
         $ator = $this->Ator->find('first', compact('fields', 'conditions'));
         if (!empty($ator['Ator']['nascimento'])) {
             $ator['Ator']['nascimento'] = date('d/m/Y', strtotime($ator['Ator']['nascimento']));
         }
-        $this->request->data = $ator;
-        $this->set('filmes', $this->Ator->Filme->find('list', array('fields' => array('Filme.id', 'Filme.nome'))));
+        return $ator;
     }
 
-    public function delete($id) {
-        $this->Ator->delete($id);
-        $this->Flash->bootstrap('Ator excluído com sucesso!', array('key' => 'warning'));
-        $this->redirect('/ators');
+    public function view($id = null) {
+        parent::view($id);
+        $this->setFilmes();
     }
-
-    public function report() {
-        $this->layout = false;
-        $this->response->type('pdf');
-        $fields = array('Ator.nome', 'Ator.nascimento');
-        $ators = $this->Ator->find('all', compact('fields'));
-        $this->set('ators', $ators);
-    }
-
 
 }

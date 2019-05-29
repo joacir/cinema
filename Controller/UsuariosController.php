@@ -3,9 +3,6 @@ App::uses('AppController', 'Controller');
 
 class UsuariosController extends AppController {
 
-    public $layout = 'bootstrap';
-    public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
-
     public $paginate = array(
         'fields' => array('Usuario.id', 'Usuario.nome'),
         'conditions' => array(),
@@ -15,65 +12,43 @@ class UsuariosController extends AppController {
 
     public function beforeFilter() {
         $this->Auth->allow(array('logout','login'));            
-        $this->Auth->mapActions(['read' => ['report']]);
+        parent::beforeFilter();
     }             
 
-    public function index() {
-        if ($this->request->is('post') && !empty($this->request->data['Usuario']['nome'])) {
-            $this->paginate['conditions']['Usuario.nome LIKE'] = '%' .trim($this->request->data['Usuario']['nome']) . '%';
+    public function setPaginateConditions() {
+        $nome = '';
+        if ($this->request->is('post')) {
+            $nome = $this->request->data['Usuario']['nome'];
+            $this->Session->write('Usuario.nome', $nome);
+        } else {
+            $nome = $this->Session->read('Usuario.nome');
+            $this->request->data('Usuario.nome', $nome);
         }
-        $usuarios = $this->paginate();
-        $this->set('usuarios', $usuarios);        
+        if (!empty($nome)) {
+            $this->paginate['conditions']['Usuario.nome LIKE'] = '%' . trim($nome) . '%';
+        }
     }
 
     public function add() {
-        if (!empty($this->request->data)) {
-            $this->Usuario->create();
-            if ($this->Usuario->save($this->request->data)) {
-                $this->Flash->bootstrap('Usuário gravado com sucesso!', array('key' => 'success'));
-                $this->redirect('/usuarios');
-            }
-        }
-        $aros = $this->Acl->Aro->find('list', [
-            'conditions' => ['Aro.parent_id IS NULL'], 
-            'fields' => ['Aro.id', 'Aro.alias']
-        ]);
-        $this->set('aros', $aros);
+        parent::add();
+        $this->setAroList();
     }
 
     public function edit($id = null) {
-        if (!empty($this->request->data)) {
-            if ($this->Usuario->save($this->request->data)) {
-                $this->Flash->bootstrap('Usuário alterado com sucesso!', array('key' => 'success'));
-                $this->redirect('/usuarios');
-            }
-        } else {
-            $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.aro_parent_id');
-            $conditions = array('Usuario.id' => $id);
-            $this->request->data = $this->Usuario->find('first', compact('fields', 'conditions'));
-        }
-        $aros = $this->Acl->Aro->find('list', [
-            'conditions' => ['Aro.parent_id IS NULL'], 
-            'fields' => ['Aro.id', 'Aro.alias']
-        ]);
-        $this->set('aros', $aros);
-   }
-
-    public function view($id = null) {
-        $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.senha', 'Usuario.aro_parent_id');
-        $conditions = array('Usuario.id' => $id);
-        $this->request->data = $this->Usuario->find('first', compact('fields', 'conditions'));
-        $aros = $this->Acl->Aro->find('list', [
-            'conditions' => ['Aro.parent_id IS NULL'], 
-            'fields' => ['Aro.id', 'Aro.alias']
-        ]);
-        $this->set('aros', $aros);
+        parent::edit($id);
+        $this->setAroList();
     }
 
-    public function delete($id) {
-        $this->Usuario->delete($id);
-        $this->Flash->bootstrap('Usuário excluído com sucesso!', array('key' => 'success'));
-        $this->redirect('/usuarios');
+    public function getEditData($id) {        
+        $fields = array('Usuario.id', 'Usuario.nome', 'Usuario.login', 'Usuario.aro_parent_id');
+        $conditions = array('Usuario.id' => $id);
+        
+        return $this->Usuario->find('first', compact('fields', 'conditions'));
+    }
+
+    public function view($id = null) {
+        parent::view($id);
+        $this->setAroList();
     }
 
     public function login() {
@@ -91,13 +66,12 @@ class UsuariosController extends AppController {
         $this->redirect('/login');
     }
 
-    public function report() {
-        $this->layout = false;
-        $this->response->type('pdf');
-        $fields = array('Usuario.nome');
-        $usuarios = $this->Usuario->find('all', compact('fields'));
-        $this->set('usuarios', $usuarios);
+    public function setAroList() {
+        $aros = $this->Acl->Aro->find('list', [
+            'conditions' => ['Aro.parent_id IS NULL'], 
+            'fields' => ['Aro.id', 'Aro.alias']
+        ]);
+        $this->set('aros', $aros);
     }
-
 
 }
