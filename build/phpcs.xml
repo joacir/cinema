@@ -1,0 +1,17 @@
+<ruleset name="Aelian Standard">
+ <description>Padrões de código da Aelian</description>
+ <rule ref="CakePHP">
+  <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+  <exclude name="PSR1.Files.SideEffects"/>
+  <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+  <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody"/>
+  <exclude name="PSR2.Files.EndFileNewline.NoneFound"/>
+  <exclude name="PSR2.Files.ClosingTag.NotAllowed"/>
+  <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+  <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found"/>
+  <exclude name="Generic.Files.LineEndings"/>
+  <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
+  <exclude name="CakePHP.WhiteSpace.TabAndSpace"/>
+  <exclude name="CakePHP.Commenting.FunctionComment.Missing"/>
+ </rule>
+</ruleset>
