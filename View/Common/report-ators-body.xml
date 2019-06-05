@@ -1,0 +1,6 @@
+<body>
+    <line1><line border='1'>
+        <cell1><cell fieldName='Ator.nome'></cell></cell1>
+        <cell2><cell fieldName='Ator.nascimento' lineWidth='30' date='d/m/Y'></cell></cell2>
+    </line></line1>
+</body>

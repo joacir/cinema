@@ -5,7 +5,7 @@ class FilmesController extends AppController {
 
     public $paginate = array(
         'fields' => array('Filme.id', 'Filme.nome', 'Filme.ano', 'Genero.nome'),
-        'conditions' => array(),
+        'conditions' => array('Filme.deleted IS NULL'),
         'limit' => 10,
         'order' => array('Filme.nome' => 'asc')    
     );

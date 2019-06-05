@@ -1,7 +1,7 @@
 <?php
 class FilmeTest extends CakeTestCase {
 
-    public $fixtures = array('app.filme');
+    public $fixtures = array('app.filme', 'app.ator', 'app.ators_filme');
     public $Filme = null;
 
     public function setUp() {
@@ -27,6 +27,16 @@ class FilmeTest extends CakeTestCase {
         $data = array('Filme' => array('duracao' => null));
         $saved = $this->Filme->save($data);
         $this->assertFalse($saved);
+    }
+
+    public function testDelete() {
+        $filmeId = 1;
+        $this->Filme->contain();
+        $deleted = $this->Filme->delete($filmeId);
+        $conditions = array('Filme.deleted IS NOT NULL', 'Filme.id' => $filmeId);
+        $contain = false;
+        $deletedFilme = $this->Filme->find('first', compact('conditions', 'contain'));
+        $this->assertNotEmpty($deletedFilme);
     }
 
 
