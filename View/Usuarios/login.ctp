@@ -18,7 +18,7 @@ $form .= $this->Form->input('Usuario.senha', array(
     'class' => 'form-control', 
     'error' => array('attributes' => array('class' => 'invalid-feedback'))    
 ));
-$form .= $this->Form->submit('Entrar', array('div' => false, 'class' => 'btn btn-success btn-lg btn-block mb-3'));
+$form .= $this->Form->submit('Entrar', array('div' => false, 'class' => 'btn btn-danger btn-lg btn-block mb-3'));
 $form .= $this->Flash->render('danger'); 
 $form .= $this->Flash->render('warning'); 
 $form .= $this->Form->end();
