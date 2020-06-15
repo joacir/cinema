@@ -38,6 +38,18 @@
                     <th><?= __('Data Avaliacao') ?></th>
                     <td><?= h($critica->data_avaliacao) ?></td>
                 </tr>
+                <tr>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($critica->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Modified') ?></th>
+                    <td><?= h($critica->modified) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Deleted') ?></th>
+                    <td><?= h($critica->deleted) ?></td>
+                </tr>
             </table>
         </div>
     </div>

@@ -26,6 +26,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Critica[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Critica[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Critica[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class CriticasTable extends Table
 {
@@ -42,6 +44,8 @@ class CriticasTable extends Table
         $this->setTable('criticas');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Filmes', [
             'foreignKey' => 'filme_id',
@@ -72,6 +76,10 @@ class CriticasTable extends Table
         $validator
             ->dateTime('data_avaliacao')
             ->allowEmptyDateTime('data_avaliacao');
+
+        $validator
+            ->dateTime('deleted')
+            ->allowEmptyDateTime('deleted');
 
         return $validator;
     }

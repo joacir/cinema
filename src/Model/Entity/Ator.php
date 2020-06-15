@@ -11,6 +11,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $nome
  * @property \Cake\I18n\FrozenTime|null $nascimento
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $deleted
  *
  * @property \App\Model\Entity\Filme[] $filmes
  */
@@ -28,6 +31,9 @@ class Ator extends Entity
     protected $_accessible = [
         'nome' => true,
         'nascimento' => true,
+        'created' => true,
+        'modified' => true,
+        'deleted' => true,
         'filmes' => true,
     ];
 }

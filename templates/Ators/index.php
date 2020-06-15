@@ -14,6 +14,9 @@
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('nome') ?></th>
                     <th><?= $this->Paginator->sort('nascimento') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('deleted') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -23,6 +26,9 @@
                     <td><?= $this->Number->format($ator->id) ?></td>
                     <td><?= h($ator->nome) ?></td>
                     <td><?= h($ator->nascimento) ?></td>
+                    <td><?= h($ator->created) ?></td>
+                    <td><?= h($ator->modified) ?></td>
+                    <td><?= h($ator->deleted) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $ator->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $ator->id]) ?>

@@ -35,8 +35,16 @@
                     <td><?= $this->Number->format($usuario->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Aro Parent Id') ?></th>
-                    <td><?= $this->Number->format($usuario->aro_parent_id) ?></td>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($usuario->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Modified') ?></th>
+                    <td><?= h($usuario->modified) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Deleted') ?></th>
+                    <td><?= h($usuario->deleted) ?></td>
                 </tr>
             </table>
         </div>

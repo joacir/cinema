@@ -21,6 +21,7 @@
                     echo $this->Form->control('avaliacao');
                     echo $this->Form->control('data_avaliacao', ['empty' => true]);
                     echo $this->Form->control('filme_id', ['options' => $filmes, 'empty' => true]);
+                    echo $this->Form->control('deleted', ['empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

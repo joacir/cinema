@@ -32,7 +32,9 @@ class UsuariosController extends AppController
      */
     public function view($id = null)
     {
-        $usuario = $this->Usuarios->get($id);
+        $usuario = $this->Usuarios->get($id, [
+            'contain' => [],
+        ]);
 
         $this->set(compact('usuario'));
     }

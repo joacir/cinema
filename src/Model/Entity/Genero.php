@@ -10,6 +10,9 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $nome
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $deleted
  *
  * @property \App\Model\Entity\Filme[] $filmes
  */
@@ -26,6 +29,9 @@ class Genero extends Entity
      */
     protected $_accessible = [
         'nome' => true,
+        'created' => true,
+        'modified' => true,
+        'deleted' => true,
         'filmes' => true,
     ];
 }

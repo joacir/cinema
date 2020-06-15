@@ -18,6 +18,7 @@
                 <legend><?= __('Add Genero') ?></legend>
                 <?php
                     echo $this->Form->control('nome');
+                    echo $this->Form->control('deleted', ['empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

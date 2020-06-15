@@ -25,7 +25,7 @@
                     echo $this->Form->control('nome');
                     echo $this->Form->control('login');
                     echo $this->Form->control('senha');
-                    echo $this->Form->control('aro_parent_id');
+                    echo $this->Form->control('deleted', ['empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

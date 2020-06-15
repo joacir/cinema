@@ -11,8 +11,6 @@ use Cake\Validation\Validator;
 /**
  * Usuarios Model
  *
- * @property \App\Model\Table\AroParentsTable&\Cake\ORM\Association\BelongsTo $AroParents
- *
  * @method \App\Model\Entity\Usuario newEmptyEntity()
  * @method \App\Model\Entity\Usuario newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Usuario[] newEntities(array $data, array $options = [])
@@ -26,6 +24,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Usuario[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Usuario[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Usuario[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class UsuariosTable extends Table
 {
@@ -42,6 +42,8 @@ class UsuariosTable extends Table
         $this->setTable('usuarios');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
     }
 
     /**
@@ -70,6 +72,10 @@ class UsuariosTable extends Table
             ->scalar('senha')
             ->maxLength('senha', 100)
             ->allowEmptyString('senha');
+
+        $validator
+            ->dateTime('deleted')
+            ->allowEmptyDateTime('deleted');
 
         return $validator;
     }

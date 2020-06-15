@@ -16,6 +16,9 @@
                     <th><?= $this->Paginator->sort('avaliacao') ?></th>
                     <th><?= $this->Paginator->sort('data_avaliacao') ?></th>
                     <th><?= $this->Paginator->sort('filme_id') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('deleted') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -27,6 +30,9 @@
                     <td><?= $this->Number->format($critica->avaliacao) ?></td>
                     <td><?= h($critica->data_avaliacao) ?></td>
                     <td><?= $critica->has('filme') ? $this->Html->link($critica->filme->id, ['controller' => 'Filmes', 'action' => 'view', $critica->filme->id]) : '' ?></td>
+                    <td><?= h($critica->created) ?></td>
+                    <td><?= h($critica->modified) ?></td>
+                    <td><?= h($critica->deleted) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $critica->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $critica->id]) ?>

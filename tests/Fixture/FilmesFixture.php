@@ -23,6 +23,9 @@ class FilmesFixture extends TestFixture
         'duracao' => ['type' => 'string', 'length' => 5, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'idioma' => ['type' => 'string', 'length' => 50, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'genero_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
+        'modified' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
+        'deleted' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
         '_indexes' => [
             'filme_genero_fk' => ['type' => 'index', 'columns' => ['genero_id'], 'length' => []],
         ],
@@ -51,6 +54,9 @@ class FilmesFixture extends TestFixture
                 'duracao' => 'Lor',
                 'idioma' => 'Lorem ipsum dolor sit amet',
                 'genero_id' => 1,
+                'created' => '2020-06-15 18:57:10',
+                'modified' => '2020-06-15 18:57:10',
+                'deleted' => '2020-06-15 18:57:10',
             ],
         ];
         parent::init();

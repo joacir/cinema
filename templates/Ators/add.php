@@ -19,6 +19,7 @@
                 <?php
                     echo $this->Form->control('nome');
                     echo $this->Form->control('nascimento', ['empty' => true]);
+                    echo $this->Form->control('deleted', ['empty' => true]);
                     echo $this->Form->control('filmes._ids', ['options' => $filmes]);
                 ?>
             </fieldset>

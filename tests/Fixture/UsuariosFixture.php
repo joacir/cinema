@@ -21,7 +21,9 @@ class UsuariosFixture extends TestFixture
         'nome' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'login' => ['type' => 'string', 'length' => 20, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'senha' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
-        'aro_parent_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
+        'modified' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
+        'deleted' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -44,7 +46,9 @@ class UsuariosFixture extends TestFixture
                 'nome' => 'Lorem ipsum dolor sit amet',
                 'login' => 'Lorem ipsum dolor ',
                 'senha' => 'Lorem ipsum dolor sit amet',
-                'aro_parent_id' => 1,
+                'created' => '2020-06-15 18:57:31',
+                'modified' => '2020-06-15 18:57:31',
+                'deleted' => '2020-06-15 18:57:31',
             ],
         ];
         parent::init();

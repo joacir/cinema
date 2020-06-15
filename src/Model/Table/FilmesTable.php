@@ -28,6 +28,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Filme[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Filme[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Filme[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class FilmesTable extends Table
 {
@@ -44,6 +46,8 @@ class FilmesTable extends Table
         $this->setTable('filmes');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Generos', [
             'foreignKey' => 'genero_id',
@@ -88,6 +92,10 @@ class FilmesTable extends Table
             ->scalar('idioma')
             ->maxLength('idioma', 50)
             ->allowEmptyString('idioma');
+
+        $validator
+            ->dateTime('deleted')
+            ->allowEmptyDateTime('deleted');
 
         return $validator;
     }

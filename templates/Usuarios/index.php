@@ -15,7 +15,9 @@
                     <th><?= $this->Paginator->sort('nome') ?></th>
                     <th><?= $this->Paginator->sort('login') ?></th>
                     <th><?= $this->Paginator->sort('senha') ?></th>
-                    <th><?= $this->Paginator->sort('aro_parent_id') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('deleted') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -26,7 +28,9 @@
                     <td><?= h($usuario->nome) ?></td>
                     <td><?= h($usuario->login) ?></td>
                     <td><?= h($usuario->senha) ?></td>
-                    <td><?= $this->Number->format($usuario->aro_parent_id) ?></td>
+                    <td><?= h($usuario->created) ?></td>
+                    <td><?= h($usuario->modified) ?></td>
+                    <td><?= h($usuario->deleted) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $usuario->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $usuario->id]) ?>

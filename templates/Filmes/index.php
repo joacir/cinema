@@ -17,6 +17,9 @@
                     <th><?= $this->Paginator->sort('duracao') ?></th>
                     <th><?= $this->Paginator->sort('idioma') ?></th>
                     <th><?= $this->Paginator->sort('genero_id') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
+                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('deleted') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -29,6 +32,9 @@
                     <td><?= h($filme->duracao) ?></td>
                     <td><?= h($filme->idioma) ?></td>
                     <td><?= $filme->has('genero') ? $this->Html->link($filme->genero->id, ['controller' => 'Generos', 'action' => 'view', $filme->genero->id]) : '' ?></td>
+                    <td><?= h($filme->created) ?></td>
+                    <td><?= h($filme->modified) ?></td>
+                    <td><?= h($filme->deleted) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $filme->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $filme->id]) ?>

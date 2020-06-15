@@ -14,6 +14,9 @@ use Cake\ORM\Entity;
  * @property string|null $duracao
  * @property string|null $idioma
  * @property int|null $genero_id
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $deleted
  *
  * @property \App\Model\Entity\Genero $genero
  * @property \App\Model\Entity\Critica[] $criticas
@@ -36,6 +39,9 @@ class Filme extends Entity
         'duracao' => true,
         'idioma' => true,
         'genero_id' => true,
+        'created' => true,
+        'modified' => true,
+        'deleted' => true,
         'genero' => true,
         'criticas' => true,
         'ators' => true,

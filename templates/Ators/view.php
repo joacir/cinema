@@ -30,6 +30,18 @@
                     <th><?= __('Nascimento') ?></th>
                     <td><?= h($ator->nascimento) ?></td>
                 </tr>
+                <tr>
+                    <th><?= __('Created') ?></th>
+                    <td><?= h($ator->created) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Modified') ?></th>
+                    <td><?= h($ator->modified) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Deleted') ?></th>
+                    <td><?= h($ator->deleted) ?></td>
+                </tr>
             </table>
             <div class="related">
                 <h4><?= __('Related Filmes') ?></h4>
@@ -43,6 +55,9 @@
                             <th><?= __('Duracao') ?></th>
                             <th><?= __('Idioma') ?></th>
                             <th><?= __('Genero Id') ?></th>
+                            <th><?= __('Created') ?></th>
+                            <th><?= __('Modified') ?></th>
+                            <th><?= __('Deleted') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($ator->filmes as $filmes) : ?>
@@ -53,6 +68,9 @@
                             <td><?= h($filmes->duracao) ?></td>
                             <td><?= h($filmes->idioma) ?></td>
                             <td><?= h($filmes->genero_id) ?></td>
+                            <td><?= h($filmes->created) ?></td>
+                            <td><?= h($filmes->modified) ?></td>
+                            <td><?= h($filmes->deleted) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Filmes', 'action' => 'view', $filmes->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Filmes', 'action' => 'edit', $filmes->id]) ?>

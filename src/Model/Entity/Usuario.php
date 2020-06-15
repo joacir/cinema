@@ -12,9 +12,9 @@ use Cake\ORM\Entity;
  * @property string|null $nome
  * @property string|null $login
  * @property string|null $senha
- * @property int|null $aro_parent_id
- *
- * @property \App\Model\Entity\AroParent $aro_parent
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $deleted
  */
 class Usuario extends Entity
 {
@@ -31,7 +31,8 @@ class Usuario extends Entity
         'nome' => true,
         'login' => true,
         'senha' => true,
-        'aro_parent_id' => true,
-        'aro_parent' => true,
+        'created' => true,
+        'modified' => true,
+        'deleted' => true,
     ];
 }

@@ -22,6 +22,7 @@
                     echo $this->Form->control('duracao');
                     echo $this->Form->control('idioma');
                     echo $this->Form->control('genero_id', ['options' => $generos, 'empty' => true]);
+                    echo $this->Form->control('deleted', ['empty' => true]);
                     echo $this->Form->control('ators._ids', ['options' => $ators]);
                 ?>
             </fieldset>
