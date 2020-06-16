@@ -1,52 +1,34 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Ator[]|\Cake\Collection\CollectionInterface $ators
- */
-?>
-<div class="ators index content">
-    <?= $this->Html->link(__('New Ator'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Ators') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('nome') ?></th>
-                    <th><?= $this->Paginator->sort('nascimento') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('deleted') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($ators as $ator): ?>
-                <tr>
-                    <td><?= $this->Number->format($ator->id) ?></td>
-                    <td><?= h($ator->nome) ?></td>
-                    <td><?= h($ator->nascimento) ?></td>
-                    <td><?= h($ator->created) ?></td>
-                    <td><?= h($ator->modified) ?></td>
-                    <td><?= h($ator->deleted) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $ator->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $ator->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $ator->id], ['confirm' => __('Are you sure you want to delete # {0}?', $ator->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+$this->extend('/Common/index');
+
+$this->assign('title', 'Atores');
+
+$searchFields = $this->Form->control('Ator.nome', [
+    'required' => false,
+    'label' => ['text' => 'Nome', 'class' => 'sr-only'],
+    'class' => 'form-control mb-2 mr-sm-2',
+    'div' => false,
+    'placeholder' => 'Nome...'
+]);
+
+$this->assign('searchFields', $searchFields);
+
+$nomeSort = $this->Paginator->sort('Ator.nome', 'Nome');
+$nascimentoSort = $this->Paginator->sort('Ator.nascimento', 'Nascimento');
+$titulos = [$nomeSort, $nascimentoSort, ''];
+$tableHeaders = $this->Html->tableHeaders($titulos);
+$this->assign('tableHeaders', $tableHeaders);
+
+$detalhe = [];
+foreach ($ators as $ator) {
+    $editLink = $this->Html->link(__('Alterar'), ['action' => 'edit', $ator->id], ['update' => '#content']);
+    $deleteLink = $this->Form->postLink(__('Excluir'), ['action' => 'delete', $ator->id], ['update' => '#content', 'confirm' => __('Tem certeza?')]);
+    $viewLink = $this->Html->link($ator->nome, ['action' => 'view', $ator->id], ['update' => '#content']);
+    $detalhe[] = [
+        $viewLink, 
+        date('d/m/Y', strtotime($ator->nascimento)),
+        $editLink . ' ' . $deleteLink
+    ];
+}
+$tableCells = $this->Html->tableCells($detalhe);
+$this->assign('tableCells', $tableCells);

@@ -1,50 +1,32 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Genero[]|\Cake\Collection\CollectionInterface $generos
- */
-?>
-<div class="generos index content">
-    <?= $this->Html->link(__('New Genero'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Generos') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('nome') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('deleted') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($generos as $genero): ?>
-                <tr>
-                    <td><?= $this->Number->format($genero->id) ?></td>
-                    <td><?= h($genero->nome) ?></td>
-                    <td><?= h($genero->created) ?></td>
-                    <td><?= h($genero->modified) ?></td>
-                    <td><?= h($genero->deleted) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $genero->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $genero->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $genero->id], ['confirm' => __('Are you sure you want to delete # {0}?', $genero->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+$this->extend('/Common/index');
+
+$this->assign('title', 'Gêneros');
+
+$searchFields = $this->Form->control('Genero.nome', [
+    'required' => false,
+    'label' => ['text' => 'Nome', 'class' => 'sr-only'],
+    'class' => 'form-control mb-2 mr-sm-2',
+    'div' => false,
+    'placeholder' => 'Nome...'
+]);
+
+$this->assign('searchFields', $searchFields);
+
+$titulos = ['Nome', ''];
+$tableHeaders = $this->Html->tableHeaders($titulos);
+$this->assign('tableHeaders', $tableHeaders);
+
+$detalhe = [];
+foreach ($generos as $genero) {
+    $editLink = $this->Html->link(__('Alterar'), ['action' => 'edit', $genero->id], ['update' => '#content']);
+    $deleteLink = $this->Form->postLink(__('Excluir'), ['action' => 'delete', $genero->id], ['update' => '#content', 'confirm' => __('Tem certeza?')]);
+    $viewLink = $this->Html->link($genero->nome, ['action' => 'view', $genero->id], ['update' => '#content']);
+    $detalhe[] = [
+        $viewLink, 
+        $editLink . ' ' . $deleteLink
+    ];
+}
+$tableCells = $this->Html->tableCells($detalhe);
+$this->assign('tableCells', $tableCells);
+

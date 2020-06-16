@@ -1,30 +1,18 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Usuario $usuario
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Usuarios'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="usuarios form content">
-            <?= $this->Form->create($usuario) ?>
-            <fieldset>
-                <legend><?= __('Add Usuario') ?></legend>
-                <?php
-                    echo $this->Form->control('nome');
-                    echo $this->Form->control('login');
-                    echo $this->Form->control('senha');
-                    echo $this->Form->control('deleted', ['empty' => true]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+$this->extend('/Common/form');
+
+$this->assign('title', 'Novo Usuário');
+
+$formFields = $this->element('formCreate', ['entity' => $usuario]);
+$formFields .= $this->Form->control('nome');
+$formFields .=$this->Html->div('row',
+    $this->Form->control('login', [
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+    ]) .
+    $this->Form->control('senha', [
+        'type' => 'password',
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+    ]) 
+);
+
+$this->assign('formFields', $formFields);

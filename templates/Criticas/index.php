@@ -1,56 +1,32 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Critica[]|\Cake\Collection\CollectionInterface $criticas
- */
-?>
-<div class="criticas index content">
-    <?= $this->Html->link(__('New Critica'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Criticas') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('nome') ?></th>
-                    <th><?= $this->Paginator->sort('avaliacao') ?></th>
-                    <th><?= $this->Paginator->sort('data_avaliacao') ?></th>
-                    <th><?= $this->Paginator->sort('filme_id') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('deleted') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($criticas as $critica): ?>
-                <tr>
-                    <td><?= $this->Number->format($critica->id) ?></td>
-                    <td><?= h($critica->nome) ?></td>
-                    <td><?= $this->Number->format($critica->avaliacao) ?></td>
-                    <td><?= h($critica->data_avaliacao) ?></td>
-                    <td><?= $critica->has('filme') ? $this->Html->link($critica->filme->id, ['controller' => 'Filmes', 'action' => 'view', $critica->filme->id]) : '' ?></td>
-                    <td><?= h($critica->created) ?></td>
-                    <td><?= h($critica->modified) ?></td>
-                    <td><?= h($critica->deleted) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $critica->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $critica->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $critica->id], ['confirm' => __('Are you sure you want to delete # {0}?', $critica->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+$this->extend('/Common/index');
+
+$this->assign('title', 'Críticas');
+
+$searchFields = $this->Form->control('Critica.nome', [
+    'required' => false,
+    'label' => ['text' => 'Nome', 'class' => 'sr-only'],
+    'class' => 'form-control mb-2 mr-sm-2',
+    'div' => false,
+    'placeholder' => 'Nome...'
+]);
+
+$this->assign('searchFields', $searchFields);
+
+$titulos = ['Nome', 'Avaliação', ''];
+$tableHeaders = $this->Html->tableHeaders($titulos);
+$this->assign('tableHeaders', $tableHeaders);
+
+$detalhe = [];
+foreach ($criticas as $critica) {
+    $editLink = $this->Html->link(__('Alterar'), ['action' =>'edit', $critica->id], ['update' => '#content']);
+    $deleteLink = $this->Form->postLink(__('Excluir'), ['action' => 'delete', $critica->id], ['update' => '#content', 'confirm' => __('Tem certeza?')]);
+    $viewLink = $this->Html->link($critica->nome, ['action' => 'view', $critica->id], ['update' => '#content']);
+    $detalhe[] = [
+        $viewLink, 
+        $critica->avaliacao,
+        $editLink . ' ' . $deleteLink
+    ];
+}
+$tableCells = $this->Html->tableCells($detalhe);
+$this->assign('tableCells', $tableCells);

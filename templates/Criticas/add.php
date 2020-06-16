@@ -1,31 +1,30 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Critica $critica
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Criticas'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="criticas form content">
-            <?= $this->Form->create($critica) ?>
-            <fieldset>
-                <legend><?= __('Add Critica') ?></legend>
-                <?php
-                    echo $this->Form->control('nome');
-                    echo $this->Form->control('avaliacao');
-                    echo $this->Form->control('data_avaliacao', ['empty' => true]);
-                    echo $this->Form->control('filme_id', ['options' => $filmes, 'empty' => true]);
-                    echo $this->Form->control('deleted', ['empty' => true]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+$this->extend('/Common/form');
+
+$this->assign('title', 'Nova Crítica');
+
+$formFields = $this->element('formCreate', ['entity' => $critica]);
+$formFields .= $this->Html->div('form-row',
+    $this->Form->control('nome', [
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+    ]) .
+    $this->Form->control('avaliacao', [
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+        'label' => ['text' => 'Avaliação'],
+    ])
+);
+$formFields .= $this->Html->div('form-row',
+    $this->Form->control('data_avaliacao', [
+        'label' => ['text' => 'Data Avaliação'],
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+    ]) .
+    $this->Form->control('filme_id', [
+        'type' => 'select', 
+        'label' => ['text' => 'Selecione o Filme'],
+        'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
+        'options' => $filmes
+    ])
+);
+
+$this->assign('formFields', $formFields);
+
