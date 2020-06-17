@@ -3,7 +3,8 @@ $this->extend('/Common/index');
 
 $this->assign('title', 'Gêneros');
 
-$searchFields = $this->Form->control('Genero.nome', [
+$searchFields = $this->Form->create($genero, ['class' => 'form-inline']);
+$searchFields .= $this->Form->control('nome', [
     'required' => false,
     'label' => ['text' => 'Nome', 'class' => 'sr-only'],
     'class' => 'form-control mb-2 mr-sm-2',

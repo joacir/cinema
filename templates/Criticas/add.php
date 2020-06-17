@@ -3,7 +3,7 @@ $this->extend('/Common/form');
 
 $this->assign('title', 'Nova Crítica');
 
-$formFields = $this->element('formCreate', ['entity' => $critica]);
+$formFields = $this->element('formCreate');
 $formFields .= $this->Html->div('form-row',
     $this->Form->control('nome', [
         'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],

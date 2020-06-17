@@ -3,7 +3,7 @@ $this->extend('/Common/form');
 
 $this->assign('title', 'Alteração do Filme');
 
-$formFields = $this->element('formCreate', ['entity' => $filme]);
+$formFields = $this->element('formCreate');
 
 $formFields .= $this->Html->div('form-row', 
     $this->Form->control('nome', [

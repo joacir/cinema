@@ -3,108 +3,48 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Criticas Controller
- *
- * @property \App\Model\Table\CriticasTable $Criticas
- * @method \App\Model\Entity\Critica[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class CriticasController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
+    public $paginate = [
+        'fields' => ['id', 'nome', 'avaliacao', 'data_avaliacao'],
+        'contain' => ['Filmes' => ['fields' => ['nome']]],
+        'conditions' => ['Criticas.deleted IS NULL'],
+        'limit' => 10,        
+        'order' => ['Critica.nome' => 'asc']    
+    ];
+
+    public function setPaginateConditions() 
     {
-        $this->paginate = [
-            'contain' => ['Filmes'],
-        ];
-        $criticas = $this->paginate($this->Criticas);
-
-        $this->set(compact('criticas'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Critica id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $critica = $this->Criticas->get($id, [
-            'contain' => ['Filmes'],
-        ]);
-
-        $this->set(compact('critica'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $critica = $this->Criticas->newEmptyEntity();
+        $nome = '';
         if ($this->request->is('post')) {
-            $critica = $this->Criticas->patchEntity($critica, $this->request->getData());
-            if ($this->Criticas->save($critica)) {
-                $this->Flash->success(__('The critica has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The critica could not be saved. Please, try again.'));
-        }
-        $filmes = $this->Criticas->Filmes->find('list', ['limit' => 200]);
-        $this->set(compact('critica', 'filmes'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Critica id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $critica = $this->Criticas->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $critica = $this->Criticas->patchEntity($critica, $this->request->getData());
-            if ($this->Criticas->save($critica)) {
-                $this->Flash->success(__('The critica has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The critica could not be saved. Please, try again.'));
-        }
-        $filmes = $this->Criticas->Filmes->find('list', ['limit' => 200]);
-        $this->set(compact('critica', 'filmes'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Critica id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $critica = $this->Criticas->get($id);
-        if ($this->Criticas->delete($critica)) {
-            $this->Flash->success(__('The critica has been deleted.'));
+            $nome = $this->request->getData('Critica.nome');
+            $this->request->getSession()->write('Critica.nome', $nome);
         } else {
-            $this->Flash->error(__('The critica could not be deleted. Please, try again.'));
+            $nome = $this->request->getSession()->read('Critica.nome');
         }
-
-        return $this->redirect(['action' => 'index']);
+        if (!empty($nome)) {
+            $this->paginate['conditions']['Critica.nome LIKE'] = '%' . trim($nome) . '%';
+        }
     }
+
+    public function add() 
+    {
+        parent::add();
+        $this->setFilmes();
+    }
+
+    public function edit($id = null) 
+    {
+        parent::edit($id);
+        $this->setFilmes();
+    }
+
+    public function getEditEntity($id) 
+    {
+        $fields = ['id', 'nome', 'avaliacao', 'data_avaliacao', 'filme_id'];
+        $contain = ['Filmes' => ['fields' => ['nome']]];
+        
+        return $this->Criticas->get($id, compact('fields', 'contain'));
+    }
+
 }

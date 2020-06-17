@@ -3,7 +3,7 @@ $this->extend('/Common/form');
 
 $this->assign('title', 'Novo Filme');
 
-$formFields = $this->element('formCreate', ['entity' => $filme]);
+$formFields = $this->element('formCreate');
 
 $formFields .= $this->Html->div('form-row', 
     $this->Form->control('nome', [
@@ -31,7 +31,7 @@ $formFields .= $this->Html->div('form-row',
         'templates' => ['inputContainer' => '<div class="form-group col-md-4 {{type}}">{{content}}</div>'],
     ])
 );
-$formFields .= $this->Form->control('Ator', [
+$formFields .= $this->Form->control('ator._ids', [
     'type' => 'select',
     'label' => ['text' => 'Selecione os Atores'],
     'multiple' => true, 

@@ -44,7 +44,7 @@ class FilmesTable extends Table
         parent::initialize($config);
 
         $this->setTable('filmes');
-        $this->setDisplayField('id');
+        $this->setDisplayField('nome');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

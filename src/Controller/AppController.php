@@ -44,6 +44,8 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
+//        public $helpers = array('Js' => array('Jquery'), 'Pdf.Report'); 
+
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -51,4 +53,80 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
         $this->viewBuilder()->setLayout('bootstrap');
     }
+
+    public function index() 
+    {
+        $this->setPaginateConditions();
+        try {
+            $this->set($this->getControllerName(), $this->paginate());        
+        } catch (NotFoundException $e) {
+            $this->redirect('/' . $this->getControllerName());
+        }        
+    }
+
+    public function add() 
+    {
+        $entity = $this->{$this->getModelName()}->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $entity = $this->{$this->getModelName()}->patchEntity($entity, $this->request->getData());
+            if ($this->{$this->getModelName()}->save($entity)) {
+                $this->Flash->bootstrap(__('Gravado com sucesso!'), ['key' => 'success']);
+                return $this->redirect(['action' => 'index']);
+            }
+        }
+        $this->set(compact('entity'));
+    }
+
+    public function edit($id = null) 
+    {
+        $entity = $this->getEditEntity($id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $entity = $this->{$this->getModelName()}->patchEntity($entity, $this->request->getData());
+            if ($this->{$this->getModelName()}->save($entity)) {
+                $this->Flash->bootstrap(__('Alterado com sucesso!'), ['key' => 'success']);
+                return $this->redirect(['action' => 'index']);
+            }
+        }
+        $this->set(compact('entity'));
+    }
+
+    public function view($id = null) 
+    {
+        $entity = $this->getEditEntity($id);
+        $this->set(compact('entity'));
+    }
+
+    public function delete($id) 
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $entity = $this->{$this->getModelName()}->get($id);
+        if ($this->{$this->getModelName()}->delete($entity)) {
+            $this->Flash->bootstrap(__('Excluído com sucesso!'), ['key' => 'warning']);
+        } else {
+            $this->Flash->bootstrap(__('Não foi possível excluir. Tente novamente!', ['key' => 'danger']));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function report() {
+        $this->layout = false;
+        $this->response->type('pdf');
+        $this->set($this->getControllerName(), $this->paginate());        
+    }
+
+    public function getControllerName() 
+    {
+        return \Cake\Utility\Inflector::underscore($this->request->getParam('controller'));
+    }
+
+    public function getModelName() 
+    {
+        return $this->request->getParam('controller');
+    }
+
+    public function setFilmes() {
+        $this->set('filmes', $this->{$this->getModelName()}->Filmes->find('list', ['conditions' => 'Filmes.deleted IS NULL']));
+    }
+    
 }

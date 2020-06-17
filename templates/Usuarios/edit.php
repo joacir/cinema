@@ -3,7 +3,7 @@ $this->extend('/Common/form');
 
 $this->assign('title', 'Alteração do Usuário');
 
-$formFields = $this->element('formCreate', ['entity' => 'usuario']);
+$formFields = $this->element('formCreate');
 $formFields .= $this->Form->control('nome');
 $formFields .=$this->Html->div('row',
     $this->Form->control('login', [

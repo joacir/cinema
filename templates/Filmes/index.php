@@ -23,8 +23,8 @@ foreach ($filmes as $filme) {
     $viewLink = $this->Html->link($filme->nome, ['action' => 'view', $filme->id], ['update' => '#content']);
     $detalhe[] = [
         $viewLink, 
-        $filme->ano,
-        $filme->nome,
+        (string)$filme->ano,
+        $filme->genero->nome,
         $editLink . ' ' . $deleteLink
     ];
 }

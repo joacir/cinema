@@ -2,8 +2,7 @@
 $novoButton = $this->Html->link(__('Novo'), ['action' => 'add'], ['class' => 'btn btn-success float-right', 'update' => '#content']);
 $reportButton = $this->Html->link(__('Imprimir'), ['action' => 'report'], ['class' => 'btn btn-secondary float-right mr-2', 'target' => '_blank']);
 
-$filtro = $this->Form->create(null, ['class' => 'form-inline']);
-$filtro .= $this->fetch('searchFields'); 
+$filtro = $this->fetch('searchFields'); 
 $filtro .= $this->Form->submit(__('Filtrar'), ['class' => 'btn btn-primary mb-2', 'update' => '#content']);
 $filtro .= $this->Form->end();
 
@@ -41,7 +40,9 @@ $paginateBar = $this->Html->div('row',
     $this->Html->div('col-md-6 text-right', $paginateCount)
 );
 
-echo $this->Flash->render(); 
+echo $this->Flash->render('success'); 
+echo $this->Flash->render('warning'); 
+echo $this->Flash->render('danger'); 
 echo $this->Html->tag('h1', $this->fetch('title')); 
 echo $filtroBar;
 echo $table;
