@@ -77,7 +77,7 @@ class FilmesTable extends Table
         $validator
             ->scalar('nome')
             ->maxLength('nome', 100)
-            ->allowEmptyString('nome');
+            ->notBlank('nome', _('Informe o nome, please'));
 
         $validator
             ->integer('ano')
@@ -86,7 +86,7 @@ class FilmesTable extends Table
         $validator
             ->scalar('duracao')
             ->maxLength('duracao', 5)
-            ->allowEmptyString('duracao');
+            ->notBlank('duracao', _('Informe o duração, please'));
 
         $validator
             ->scalar('idioma')

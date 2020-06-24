@@ -67,15 +67,17 @@ class CriticasTable extends Table
         $validator
             ->scalar('nome')
             ->maxLength('nome', 100)
-            ->allowEmptyString('nome');
+            ->notBlank('nome', __('Informe o nome'))
+            ->minLength('nome', 3, __('Informe um nome com mais de 2 dígitos'));
 
         $validator
             ->integer('avaliacao')
-            ->allowEmptyString('avaliacao');
+            ->notBlank('avaliacao', __('Informe o avaliação'))
+            ->range('avaliacao', [1, 5], __('Informe uma avaliação de 1 á 5'));
 
         $validator
-            ->dateTime('data_avaliacao')
-            ->allowEmptyDateTime('data_avaliacao');
+            ->notBlank('data_avaliacao', __('Informe a data de avaliação'))
+            ->date('data_avaliacao', ['dmy'], __('Data de avaliação inválida'));
 
         $validator
             ->dateTime('deleted')
@@ -94,6 +96,23 @@ class CriticasTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['filme_id'], 'Filmes'));
+
+        $rules->add(
+            function($entity, $options) {
+                $anoMaiorIgualFilme = true;
+                if (!empty($entity->data_avaliacao) && $entity->filme_id) {
+                    $filme = $this->Filmes->get($entity->filme_id, ['fields' => ['ano']]);
+                    $ano = $entity->data_avaliacao->format('Y');
+                    $anoMaiorIgualFilme = $ano >= $filme->ano;
+                }
+                return $anoMaiorIgualFilme;
+            }, 
+            'anoMaiorIgualFilme',
+            [
+                'errorField' => 'data_avaliacao',
+                'message' => 'Ano de avaliação deve ser igual ou superior ao ano do Filme'
+            ]
+        );
 
         return $rules;
     }

@@ -53,13 +53,30 @@ class GenerosTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
+    public function testEmptyNome(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['nome' => null];
+        $genero = $this->Generos->newEntity($data);
+        $this->assertNotEmpty($genero->getErrors()['nome']);
+
+        $data = ['nome' => ''];
+        $genero = $this->Generos->newEntity($data);
+        $this->assertNotEmpty($genero->getErrors()['nome']);
+
+        $data = ['nome' => '   '];
+        $genero = $this->Generos->newEntity($data);
+        $this->assertNotEmpty($genero->getErrors()['nome']);
+
+        $data = ['nome' => '12'];
+        $genero = $this->Generos->newEntity($data);
+        $this->assertNotEmpty($genero->getErrors()['nome']);
     }
+
+    public function testNotUniqueNome(): void 
+    {
+        $genero = $this->Generos->newEntity(['nome' => 'Aventura']);
+        $saved = $this->Generos->save($genero);
+        $this->assertNotEmpty($genero->getErrors()['nome']);
+    }
+
 }

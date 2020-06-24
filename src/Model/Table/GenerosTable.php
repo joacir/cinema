@@ -67,7 +67,8 @@ class GenerosTable extends Table
         $validator
             ->scalar('nome')
             ->maxLength('nome', 100)
-            ->allowEmptyString('nome');
+            ->notBlank('nome', __('Informe o nome'))
+            ->minLength('nome', 3, __('Informe um nome com mais de 2 dígitos'));
 
         $validator
             ->dateTime('deleted')
@@ -75,4 +76,19 @@ class GenerosTable extends Table
 
         return $validator;
     }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['nome'], __('Nome já existe')));
+
+        return $rules;
+    }
+
 }

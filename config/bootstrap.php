@@ -43,7 +43,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
-
+use Cake\Database\Type;
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.
  *
@@ -116,6 +116,7 @@ mb_internal_encoding(Configure::read('App.encoding'));
  * formatted and sets the default language to use for translations.
  */
 ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
+setlocale(LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese'); 
 
 /*
  * Register application error and exception handlers.
@@ -203,6 +204,8 @@ ServerRequest::addDetector('tablet', function ($request) {
 //    ->useMutable();
 // TypeFactory::build('timestamptimezone')
 //    ->useMutable();
+Type::build('date')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy');
+Type::build('datetime')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy hh:mm:ss');
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize

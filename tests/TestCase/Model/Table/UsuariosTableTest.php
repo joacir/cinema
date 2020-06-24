@@ -52,23 +52,30 @@ class UsuariosTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
+    public function testEmptyNome(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['nome' => null];
+        $usuario = $this->Usuarios->newEntity($data);
+        $this->assertNotEmpty($usuario->getErrors()['nome']);
+
+        $data = ['nome' => ''];
+        $usuario = $this->Usuarios->newEntity($data);
+        $this->assertNotEmpty($usuario->getErrors()['nome']);
+
+        $data = ['nome' => '   '];
+        $usuario = $this->Usuarios->newEntity($data);
+        $this->assertNotEmpty($usuario->getErrors()['nome']);
+
+        $data = ['nome' => '12'];
+        $usuario = $this->Usuarios->newEntity($data);
+        $this->assertNotEmpty($usuario->getErrors()['nome']);
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules(): void
+    public function testNotUniqueLogin(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $usuario = $this->Usuarios->newEntity(['login' => 'jose']);
+        $saved = $this->Usuarios->save($usuario);
+        $this->assertNotEmpty($usuario->getErrors()['login']);
     }
+
 }

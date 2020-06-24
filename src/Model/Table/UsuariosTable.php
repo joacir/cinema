@@ -61,7 +61,8 @@ class UsuariosTable extends Table
         $validator
             ->scalar('nome')
             ->maxLength('nome', 100)
-            ->allowEmptyString('nome');
+            ->notBlank('nome', __('Informe o nome'))
+            ->minLength('nome', 3, __('Informe um nome com mais de 2 dígitos'));
 
         $validator
             ->scalar('login')
@@ -89,7 +90,7 @@ class UsuariosTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['login']));
+        $rules->add($rules->isUnique(['login'], ['message' => __('Login já existe')]));
 
         return $rules;
     }

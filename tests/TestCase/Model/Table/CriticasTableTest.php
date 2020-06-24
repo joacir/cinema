@@ -53,23 +53,95 @@ class CriticasTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
+    public function testEmptyNome(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['nome' => null];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['nome']);
+
+        $data = ['nome' => ''];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['nome']);
+
+        $data = ['nome' => '   '];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['nome']);
+
+        $data = ['nome' => '12'];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['nome']);
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules(): void
+    public function testEmptyAvaliacao(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['avaliacao' => null];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
+
+        $data = ['avaliacao' => ''];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
+
+        $data = ['avaliacao' => '   '];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
     }
+
+    public function testInvalidAvaliacao(): void 
+    {
+        $data = ['avaliacao' => -1];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
+
+        $data = ['avaliacao' => 0];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
+
+        $data = ['avaliacao' => 6];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['avaliacao']);
+    }
+
+    public function testEmptyDataAvaliacao(): void 
+    {
+        $data = ['data_avaliacao' => null];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+
+        $data = ['data_avaliacao' => ''];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+
+        $data = ['data_avaliacao' => '   '];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+    }
+
+    public function testInvalidDataAvaliacao(): void 
+    {
+        $data = ['data_avaliacao' => '1234'];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+
+        $data = ['data_avaliacao' => '2001-01-15'];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+
+        $data = ['data_avaliacao' => '01/13/2010'];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+
+        $data = ['data_avaliacao' => '01/12/2010'];
+        $critica = $this->Criticas->newEntity($data);
+        $this->assertEmpty($critica->getErrors());
+    }
+
+    public function testAnoMenorQueFilme(): void 
+    {
+        $data = ['data_avaliacao' => '01/01/2018', 'filme_id' => 1];
+        $critica = $this->Criticas->newEntity($data);
+        $saved = $this->Criticas->save($critica);
+        $this->assertNotEmpty($critica->getErrors()['data_avaliacao']);
+    }
+
 }

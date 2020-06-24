@@ -10,33 +10,8 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class AtorsFixture extends TestFixture
 {
-    /**
-     * Fields
-     *
-     * @var array
-     */
-    // phpcs:disable
-    public $fields = [
-        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'nome' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
-        'nascimento' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
-        'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
-        'modified' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
-        'deleted' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => true, 'default' => null, 'comment' => ''],
-        '_constraints' => [
-            'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-        ],
-        '_options' => [
-            'engine' => 'InnoDB',
-            'collation' => 'utf8_general_ci'
-        ],
-    ];
-    // phpcs:enable
-    /**
-     * Init method
-     *
-     * @return void
-     */
+    public $import = ['table' => 'ators'];    
+
     public function init(): void
     {
         $this->records = [
@@ -46,7 +21,7 @@ class AtorsFixture extends TestFixture
                 'nascimento' => '2020-06-15 18:57:01',
                 'created' => '2020-06-15 18:57:01',
                 'modified' => '2020-06-15 18:57:01',
-                'deleted' => '2020-06-15 18:57:01',
+                'deleted' => null,
             ],
         ];
         parent::init();

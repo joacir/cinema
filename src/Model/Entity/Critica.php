@@ -40,4 +40,5 @@ class Critica extends Entity
         'deleted' => true,
         'filme' => true,
     ];
+
 }

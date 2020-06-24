@@ -24,7 +24,7 @@ foreach ($criticas as $critica) {
     $viewLink = $this->Html->link($critica->nome, ['action' => 'view', $critica->id], ['update' => '#content']);
     $detalhe[] = [
         $viewLink, 
-        $critica->avaliacao,
+        (string)$critica->avaliacao,
         $editLink . ' ' . $deleteLink
     ];
 }

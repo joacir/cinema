@@ -53,13 +53,53 @@ class AtorsTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
+    public function testEmptyNome(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['nome' => null];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nome']);
+
+        $data = ['nome' => ''];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nome']);
+
+        $data = ['nome' => '   '];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nome']);
+
+        $data = ['nome' => '12'];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nome']);
     }
+
+    public function testEmptyNascimento(): void 
+    {
+        $data = ['nascimento' => null];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+
+        $data = ['nascimento' => ''];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+
+        $data = ['nascimento' => '   '];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+    }
+
+    public function testInvalidNascimento(): void 
+    {
+        $data = ['nascimento' => '2009-01-01'];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+
+        $data = ['nascimento' => '123456'];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+
+        $data = ['nascimento' => '01/13/2001'];
+        $ator = $this->Ators->newEntity($data);
+        $this->assertNotEmpty($ator->getErrors()['nascimento']);
+    }
+
 }

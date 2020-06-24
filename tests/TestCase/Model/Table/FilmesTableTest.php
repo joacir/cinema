@@ -27,7 +27,7 @@ class FilmesTableTest extends TestCase
     protected $fixtures = [
         'app.Filmes',
         'app.Generos',
-        'app.Criticas',
+        'app.Filmes',
         'app.Ators',
     ];
 
@@ -55,23 +55,33 @@ class FilmesTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
+    public function testEmptyNome(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['nome' => null];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['nome']);
+
+        $data = ['nome' => ''];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['nome']);
+
+        $data = ['nome' => '   '];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['nome']);
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules(): void
+    public function testEmptyDuracao(): void 
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = ['duracao' => null];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['duracao']);
+
+        $data = ['duracao' => ''];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['duracao']);
+
+        $data = ['duracao' => '   '];
+        $filme = $this->Filmes->newEntity($data);
+        $this->assertNotEmpty($filme->getErrors()['duracao']);
     }
 }
