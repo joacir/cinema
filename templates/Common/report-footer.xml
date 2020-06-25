@@ -1,0 +1,6 @@
+<footer>
+    <line1><line border='T' fontSizePt='6'>
+        <cell1><cell>Impresso em [DATE]</cell></cell1>
+        <cell2><cell align='R'>Página: [PAGE]/[PAGES]</cell></cell2>
+    </line></line1>
+</footer>

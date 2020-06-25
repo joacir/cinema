@@ -52,6 +52,7 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
         $this->viewBuilder()->setLayout('bootstrap');
+        $this->viewBuilder()->setHelpers(['Pdf.Report']);        
     }
 
     public function index() 
@@ -110,8 +111,8 @@ class AppController extends Controller
     }
 
     public function report() {
-        $this->layout = false;
-        $this->response->type('pdf');
+        $this->viewBuilder()->setLayout('ajax');
+        $this->response = $this->response->withType('pdf');
         $this->set($this->getControllerName(), $this->paginate());        
     }
 

@@ -1,5 +1,5 @@
 <?php
-$path = APP . 'View' . DS . 'Common' . DS;
+$path = ROOT . DS . 'templates' . DS . 'Common' . DS;
 $settings = array(
     'templateFile' => array(
         'config' => $path . 'report-config.xml', /*comum */
