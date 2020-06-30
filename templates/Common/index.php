@@ -48,10 +48,11 @@ echo $filtroBar;
 echo $table;
 echo $paginateBar;
 
-/*
+$controllerName = \Cake\Utility\Inflector::underscore($this->request->getParam('controller'));
+$this->Js->buffer("createRequestGets('#content a');");
+$this->Js->buffer("createRequestPosts('#content input[type=submit]');");    
 $this->Js->buffer('$(".nav-item").removeClass("active");');
 $this->Js->buffer('$(".nav-item a[href$=\'' . $controllerName . '\']").addClass("active");');
 if ($this->request->is('ajax')) {
     echo $this->Js->writeBuffer();
 }
-*/

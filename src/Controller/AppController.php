@@ -52,7 +52,7 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
         $this->viewBuilder()->setLayout('bootstrap');
-        $this->viewBuilder()->setHelpers(['Pdf.Report']);        
+        $this->viewBuilder()->setHelpers(['Pdf.Report', 'Js']);        
     }
 
     public function index() 

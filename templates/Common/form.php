@@ -10,9 +10,9 @@ $form .= $this->Form->end();
 echo $this->Html->tag('h1', $this->fetch('title'));
 echo $form;
 
-/*
-$this->Js->buffer('$(".form-error").addClass("is-invalid");');
+$this->Js->buffer('$(".form-error input").addClass("is-invalid");');
+$this->Js->buffer("createRequestGets('#content a');");
+$this->Js->buffer("createRequestPosts('#content input[type=submit]');");    
 if ($this->request->is('ajax')) {
     echo $this->Js->writeBuffer();
 }
-*/

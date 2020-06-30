@@ -49,7 +49,9 @@
         </main>
         <?php
             echo $this->Html->script('bootstrap.bundle.min.js');
-//            echo $this->Js->writeBuffer();
+            echo $this->Html->script('ajax.js');
+            echo $this->fetch('script');
+            echo $this->Js->writeBuffer();
         ?>
     </body>
 </html>
