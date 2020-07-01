@@ -40,6 +40,7 @@ if ($this->request->getParam('action') == 'view') {
 	$templates['textarea'] = '<textarea name="{{name}}"{{attrs}} class="form-control" disabled="disabled">{{value}}</textarea>';
 }
 $entity = !isset($entity) ? null : $entity;
-$formCreate = $this->Form->create($entity, compact('templates'));
+$options = !isset($options) ? compact('templates') : array_merge(compact('templates'), $options);
+$formCreate = $this->Form->create($entity, $options);
 
 echo $formCreate;

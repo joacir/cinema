@@ -11,13 +11,13 @@ class UsuariosController extends AppController
         'limit' => 10,
         'order' => ['nome' => 'asc']   
     ];
-/*
-    public function beforeFilter(EventInterface $event) 
+
+    public function beforeFilter(\Cake\Event\EventInterface $event) 
     {
-        $this->Auth->allow(array('logout','login'));            
         parent::beforeFilter($event);
+        $this->Authentication->allowUnauthenticated(['login', 'add']);    
     }             
-*/
+
     public function setPaginateConditions() 
     {
         $nome = '';
@@ -57,22 +57,31 @@ class UsuariosController extends AppController
 //        $this->setAroList();
     }
 
-/*    
-    public function login() {
-        $this->layout = 'login';
-        if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->bootstrap('Usuário ou senha incorretos', array('key' => 'danger'));
+    
+    public function login() 
+    {
+//        $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->setLayout('login');
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        // If the user is logged in send them away.
+        if ($result->isValid()) {
+            $target = $this->Authentication->getLoginRedirect() ?? '/';
+            return $this->redirect($target);
+        }
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->bootstrap(__('Usuário ou senha incorretos'), ['key' => 'danger']);            
         }        
     }
 
-    public function logout() {
-        $this->Auth->logout();
-        $this->redirect('/login');
+    public function logout() 
+    {
+//        $this->Authorization->skipAuthorization();
+        $this->Authentication->logout();
+        
+        return $this->redirect('/');    
     }
-
+/*
     public function setAroList() {
         $aros = $this->Acl->Aro->find('list', [
             'conditions' => ['Aro.parent_id IS NULL'], 
