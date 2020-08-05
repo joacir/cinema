@@ -44,7 +44,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-//        $this->loadComponent('Authorization.Authorization');
+        $this->loadComponent('Authorization.Authorization');
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -56,7 +56,8 @@ class AppController extends Controller
 
     public function index() 
     {
-//        $this->Authorization->skipAuthorization();
+        $entity = $this->{$this->getModelName()}->newEmptyEntity();
+        $this->Authorization->authorize($entity);
         $this->setPaginateConditions();
         try {
             $this->set($this->getControllerName(), $this->paginate());        
@@ -68,7 +69,7 @@ class AppController extends Controller
     public function add() 
     {
         $entity = $this->{$this->getModelName()}->newEmptyEntity();
-//        $this->Authorization->authorize($entity);
+        $this->Authorization->authorize($entity);
         if ($this->request->is('post')) {
             $entity = $this->{$this->getModelName()}->patchEntity($entity, $this->request->getData());
             if ($this->{$this->getModelName()}->save($entity)) {
@@ -82,7 +83,7 @@ class AppController extends Controller
     public function edit($id = null) 
     {
         $entity = $this->getEditEntity($id);
-//        $this->Authorization->authorize($entity);
+        $this->Authorization->authorize($entity);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $entity = $this->{$this->getModelName()}->patchEntity($entity, $this->request->getData());
             if ($this->{$this->getModelName()}->save($entity)) {
@@ -95,16 +96,16 @@ class AppController extends Controller
 
     public function view($id = null) 
     {
-//        $this->Authorization->authorize($entity);
         $entity = $this->getEditEntity($id);
+        $this->Authorization->authorize($entity);
         $this->set(compact('entity'));
     }
 
     public function delete($id) 
     {
-//        $this->Authorization->authorize($entity);
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getModelName()}->get($id);
+        $this->Authorization->authorize($entity);
         if ($this->{$this->getModelName()}->delete($entity)) {
             $this->Flash->bootstrap(__('Excluído com sucesso!'), ['key' => 'warning']);
         } else {
@@ -115,6 +116,8 @@ class AppController extends Controller
     }
 
     public function report() {
+        $entity = $this->{$this->getModelName()}->newEmptyEntity();
+        $this->Authorization->authorize($entity);
         $this->viewBuilder()->setLayout('ajax');
         $this->response = $this->response->withType('pdf');
         $this->set($this->getControllerName(), $this->paginate());        

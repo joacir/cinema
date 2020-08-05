@@ -60,7 +60,7 @@ class UsuariosController extends AppController
     
     public function login() 
     {
-//        $this->Authorization->skipAuthorization();
+        $this->Authorization->skipAuthorization();
         $this->viewBuilder()->setLayout('login');
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
@@ -76,7 +76,7 @@ class UsuariosController extends AppController
 
     public function logout() 
     {
-//        $this->Authorization->skipAuthorization();
+        $this->Authorization->skipAuthorization();
         $this->Authentication->logout();
         
         return $this->redirect('/');    
