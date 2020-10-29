@@ -43,7 +43,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.
  *
@@ -204,9 +204,9 @@ ServerRequest::addDetector('tablet', function ($request) {
 //    ->useMutable();
 // TypeFactory::build('timestamptimezone')
 //    ->useMutable();
-Type::build('date')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy');
-Type::build('datetime')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy hh:mm:ss');
 
+TypeFactory::build('date')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy');
+TypeFactory::build('datetime')->useLocaleParser()->setLocaleFormat('dd/MM/yyyy hh:mm:ss');
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
  * table, model, controller names or whatever other string is passed to the

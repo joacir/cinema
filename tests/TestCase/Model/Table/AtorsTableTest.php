@@ -97,7 +97,7 @@ class AtorsTableTest extends TestCase
         $ator = $this->Ators->newEntity($data);
         $this->assertNotEmpty($ator->getErrors()['nascimento']);
 
-        $data = ['nascimento' => '01/13/2001'];
+        $data = ['nome' => 'teste', 'nascimento' => '01/11/2001'];
         $ator = $this->Ators->newEntity($data);
         $this->assertNotEmpty($ator->getErrors()['nascimento']);
     }

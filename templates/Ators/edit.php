@@ -9,6 +9,7 @@ $formFields .= $this->Html->div('form-row',
         'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
     ]) .
     $this->Form->control('nascimento', [
+        'type' => 'text',
         'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
     ])
 );

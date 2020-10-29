@@ -71,10 +71,10 @@ class AtorsTable extends Table
             ->maxLength('nome', 100)
             ->notBlank('nome', __('Informe o nome'))
             ->minLength('nome', 3, __('Informe um nome com mais de 2 dígitos'));
-
+ 
         $validator
             ->notBlank('nascimento', __('Informe a data de nascimento'))
-            ->date('nascimento', ['dmy'], __('Nascimento inválido'));
+            ->datetime('nascimento', ['dmy'], __('Nascimento inválido'));
 
         $validator
             ->dateTime('deleted')

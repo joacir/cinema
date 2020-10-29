@@ -26,7 +26,7 @@ foreach ($ators as $ator) {
     $viewLink = $this->Html->link($ator->nome, ['action' => 'view', $ator->id], ['update' => '#content']);
     $detalhe[] = [
         $viewLink, 
-        date('d/m/Y', strtotime($ator->nascimento)),
+        $ator->nascimento->format('d/m/Y'),
         $editLink . ' ' . $deleteLink
     ];
 }
