@@ -39,6 +39,12 @@ class CriticasController extends AppController
         $this->setFilmes();
     }
 
+    public function view($id = null) 
+    {
+        parent::view($id);
+        $this->setFilmes();
+    }
+
     public function getEditEntity($id) 
     {
         $fields = ['id', 'nome', 'avaliacao', 'data_avaliacao', 'filme_id'];

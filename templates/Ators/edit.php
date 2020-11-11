@@ -13,7 +13,7 @@ $formFields .= $this->Html->div('form-row',
         'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
     ])
 );
-$formFields .= $this->Form->control('Filme', [
+$formFields .= $this->Form->control('filmes._ids', [
     'type' => 'select',
     'label' => ['text' => 'Selecione os Filmes'],
     'multiple' => true,

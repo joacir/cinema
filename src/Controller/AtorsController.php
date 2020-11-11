@@ -41,7 +41,7 @@ class AtorsController extends AppController
     public function getEditEntity($id) 
     {
         $fields = ['id', 'nome', 'nascimento'];
-        $contain = [];
+        $contain = ['Filmes'];
         
         return $this->Ators->get($id, compact('fields', 'contain'));
     }

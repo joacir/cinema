@@ -15,6 +15,7 @@ $formFields .= $this->Html->div('form-row',
 );
 $formFields .= $this->Html->div('form-row',
     $this->Form->control('data_avaliacao', [
+        'type' => 'text',
         'label' => ['text' => 'Data Avaliação'],
         'templates' => ['inputContainer' => '<div class="form-group col-md-6 {{type}}">{{content}}</div>'],
     ]) .

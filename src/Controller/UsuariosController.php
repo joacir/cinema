@@ -32,28 +32,13 @@ class UsuariosController extends AppController
         }
     }
 
-    public function add() 
-    {
-        parent::add();
-    }
-
-    public function edit($id = null) {
-        parent::edit($id);
-    }
-
     public function getEditEntity($id) 
     {        
-        $fields = ['id', 'nome', 'login', 'aro_parent_id'];
+        $fields = ['id', 'nome', 'login'];
         $contain = [];
         
         return $this->Usuarios->get($id, compact('fields', 'contain'));
     }
-
-    public function view($id = null) 
-    {
-        parent::view($id);
-    }
-
     
     public function login() 
     {

@@ -74,7 +74,7 @@ class AtorsTable extends Table
  
         $validator
             ->notBlank('nascimento', __('Informe a data de nascimento'))
-            ->datetime('nascimento', ['dmy'], __('Nascimento inválido'));
+            ->date('nascimento', ['dmy'], __('Nascimento inválido'));
 
         $validator
             ->dateTime('deleted')

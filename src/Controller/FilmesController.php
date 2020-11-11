@@ -40,7 +40,7 @@ class FilmesController extends AppController
     {
         $this->setGeneroAndAtors();
         $fields = ['id', 'nome', 'duracao', 'idioma', 'ano', 'genero_id'];
-        $contain = [];
+        $contain = ['Ators'];
      
         return $this->Filmes->get($id, compact('fields', 'contain'));
     }

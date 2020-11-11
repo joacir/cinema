@@ -31,7 +31,7 @@ $formFields .= $this->Html->div('form-row',
         'templates' => ['inputContainer' => '<div class="form-group col-md-4 {{type}}">{{content}}</div>'],
     ])
 );
-$formFields .= $this->Form->control('Ator', [
+$formFields .= $this->Form->control('ators._ids', [
     'type' => 'select',
     'label' => ['text' => 'Selecione os Atores'],
     'multiple' => true, 
