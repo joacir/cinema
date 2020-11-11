@@ -48,6 +48,7 @@ class FilmesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Crud');
 
         $this->belongsTo('Generos', [
             'foreignKey' => 'genero_id',

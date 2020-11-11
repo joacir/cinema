@@ -46,6 +46,7 @@ class GenerosTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Crud');
 
         $this->hasMany('Filmes', [
             'foreignKey' => 'genero_id',

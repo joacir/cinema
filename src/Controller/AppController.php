@@ -107,7 +107,7 @@ class AppController extends Controller
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getModelName()}->get($id);
         $this->Authorization->authorize($entity);
-        if ($this->{$this->getModelName()}->delete($entity)) {
+        if ($this->{$this->getModelName()}->excluir($id)) {
             $this->Flash->bootstrap(__('Excluído com sucesso!'), ['key' => 'warning']);
         } else {
             $this->Flash->bootstrap(__('Não foi possível excluir. Tente novamente!', ['key' => 'danger']));

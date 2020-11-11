@@ -46,6 +46,7 @@ class AtorsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Crud');
 
         $this->belongsToMany('Filmes', [
             'foreignKey' => 'ator_id',

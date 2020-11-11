@@ -46,6 +46,7 @@ class CriticasTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Crud');
 
         $this->belongsTo('Filmes', [
             'foreignKey' => 'filme_id',
