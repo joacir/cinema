@@ -14,7 +14,7 @@ class JsHelper extends Helper
     protected $_defaultConfig = [];
     protected $_bufferedScripts = [];
 
-public $helpers = ['Html'];    
+	public $helpers = ['Html'];    
 
     public function buffer(string $script, $top = false): void
     {

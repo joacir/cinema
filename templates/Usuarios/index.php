@@ -3,11 +3,13 @@ $this->extend('/Common/index');
 
 $this->assign('title', 'Usuários');
 
-$searchFields = $this->Form->control('Usuario.nome', [
+$searchFields = $this->element('formCreate', ['options' => ['class' => 'form-inline']]);
+$searchFields .= $this->Form->control('Usuario.nome', [
     'required' => false,
     'label' => ['text' => 'Nome', 'class' => 'sr-only'],
-    'class' => 'form-control mb-2 mr-sm-2',
-    'div' => false,
+    'templates' => [
+        'input' => '<input type="{{type}}" name="{{name}}" class="form-control mb-2 mr-sm-2"{{attrs}}/>',
+    ],
     'placeholder' => 'Nome...'
 ]);
 

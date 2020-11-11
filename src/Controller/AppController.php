@@ -58,6 +58,7 @@ class AppController extends Controller
     {
         $entity = $this->{$this->getModelName()}->newEmptyEntity();
         $this->Authorization->authorize($entity);
+        $this->set(compact('entity'));
         $this->setPaginateConditions();
         try {
             $this->set($this->getControllerName(), $this->paginate());        
