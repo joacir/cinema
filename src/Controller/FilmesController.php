@@ -17,15 +17,15 @@ class FilmesController extends AppController
     {
         $nomeOrIdioma = '';
         if ($this->request->is('post')) {
-            $nomeOrIdioma = $this->request->getData('Filme.nome_or_idioma');
-            $this->request->getSession()->write('Filme.nome_or_idioma', $nomeOrIdioma);
+            $nomeOrIdioma = $this->request->getData('nome_or_idioma');
+            $this->request->getSession()->write('nome_or_idioma', $nomeOrIdioma);
         } else {
-            $nomeOrIdioma = $this->request->getSession()->read('Filme.nome_or_idioma');
+            $nomeOrIdioma = $this->request->getSession()->read('nome_or_idioma');
         }
         if (!empty($nomeOrIdioma)) {
             $this->paginate['conditions']['or'] = [
-                'Filme.nome LIKE' => '%' .trim($nomeOrIdioma) . '%',
-                'Filme.idioma LIKE' => '%' . trim($nomeOrIdioma) . '%'
+                'Filmes.nome LIKE' => '%' .trim($nomeOrIdioma) . '%',
+                'Filmes.idioma LIKE' => '%' . trim($nomeOrIdioma) . '%'
             ];
         }
     }

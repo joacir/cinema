@@ -4,7 +4,7 @@ $this->extend('/Common/index');
 $this->assign('title', 'Filmes');
 
 $searchFields = $this->element('formCreate', ['options' => ['class' => 'form-inline']]);
-$searchFields .= $this->Form->control('Filme.nome_or_idioma', [
+$searchFields .= $this->Form->control('nome_or_idioma', [
     'required' => false,
     'label' => ['text' => 'Nome', 'class' => 'sr-only'],
     'templates' => [

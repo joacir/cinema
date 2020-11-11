@@ -16,13 +16,13 @@ class AtorsController extends AppController
     {
         $nome = '';
         if ($this->request->is('post')) {
-            $nome = $this->request->getData('Ator.nome');
-            $this->request->getSession()->write('Ator.nome', $nome);
+            $nome = $this->request->getData('nome');
+            $this->request->getSession()->write('nome', $nome);
         } else {
-            $nome = $this->request->getSession()->read('Ator.nome');
+            $nome = $this->request->getSession()->read('nome');
         }
         if (!empty($nome)) {
-            $this->paginate['conditions']['Ator.nome LIKE'] = '%' . trim($nome) . '%';
+            $this->paginate['conditions']['Ators.nome LIKE'] = '%' . trim($nome) . '%';
         }
     }
 

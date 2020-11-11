@@ -22,25 +22,23 @@ class UsuariosController extends AppController
     {
         $nome = '';
         if ($this->request->is('post')) {
-            $nome = $this->request->getData('Usuario.nome');
-            $this->request->getSession()->write('Usuario.nome', $nome);
+            $nome = $this->request->getData('nome');
+            $this->request->getSession()->write('nome', $nome);
         } else {
-            $nome = $this->request->getSession()->read('Usuario.nome');
+            $nome = $this->request->getSession()->read('nome');
         }
         if (!empty($nome)) {
-            $this->paginate['conditions']['nome LIKE'] = '%' . trim($nome) . '%';
+            $this->paginate['conditions']['Usuarios.nome LIKE'] = '%' . trim($nome) . '%';
         }
     }
 
     public function add() 
     {
         parent::add();
-//        $this->setAroList();
     }
 
     public function edit($id = null) {
         parent::edit($id);
-//        $this->setAroList();
     }
 
     public function getEditEntity($id) 
@@ -54,7 +52,6 @@ class UsuariosController extends AppController
     public function view($id = null) 
     {
         parent::view($id);
-//        $this->setAroList();
     }
 
     
@@ -81,13 +78,5 @@ class UsuariosController extends AppController
         
         return $this->redirect('/');    
     }
-/*
-    public function setAroList() {
-        $aros = $this->Acl->Aro->find('list', [
-            'conditions' => ['Aro.parent_id IS NULL'], 
-            'fields' => ['Aro.id', 'Aro.alias']
-        ]);
-        $this->set('aros', $aros);
-    }
-*/
+
 }

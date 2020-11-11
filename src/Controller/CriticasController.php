@@ -17,13 +17,13 @@ class CriticasController extends AppController
     {
         $nome = '';
         if ($this->request->is('post')) {
-            $nome = $this->request->getData('Critica.nome');
-            $this->request->getSession()->write('Critica.nome', $nome);
+            $nome = $this->request->getData('nome');
+            $this->request->getSession()->write('nome', $nome);
         } else {
-            $nome = $this->request->getSession()->read('Critica.nome');
+            $nome = $this->request->getSession()->read('nome');
         }
         if (!empty($nome)) {
-            $this->paginate['conditions']['Critica.nome LIKE'] = '%' . trim($nome) . '%';
+            $this->paginate['conditions']['Criticas.nome LIKE'] = '%' . trim($nome) . '%';
         }
     }
 
