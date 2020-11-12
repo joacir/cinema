@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `ators`;
 CREATE TABLE `ators` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
-  `nascimento` datetime DEFAULT NULL,
+  `nascimento` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -64,7 +64,7 @@ CREATE TABLE `criticas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
   `avaliacao` int(11) DEFAULT NULL,
-  `data_avaliacao` datetime DEFAULT NULL,
+  `data_avaliacao` date DEFAULT NULL,
   `filme_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `critica_filme_fk` (`filme_id`),
