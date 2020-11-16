@@ -2,7 +2,8 @@
 $novoButton = $this->Html->link(__('Novo'), ['action' => 'add'], ['class' => 'btn btn-success float-right', 'update' => '#content']);
 $reportButton = $this->Html->link(__('Imprimir'), ['action' => 'report'], ['class' => 'btn btn-secondary float-right mr-2', 'target' => '_blank']);
 
-$filtro = $this->fetch('searchFields'); 
+$filtro = $this->element('formCreate', ['options' => ['class' => 'form-inline']]);
+$filtro .= $this->fetch('searchFields'); 
 $filtro .= $this->Form->submit(__('Filtrar'), ['class' => 'btn btn-primary mb-2', 'update' => '#content']);
 $filtro .= $this->Form->end();
 
