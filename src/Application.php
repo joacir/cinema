@@ -56,6 +56,9 @@ class Application extends BaseApplication
 
         // Call parent to load bootstrap from files.
         parent::bootstrap();
+        
+        $this->addPlugin('Authentication');
+        $this->addPlugin('Authorization');
 
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();
@@ -125,7 +128,6 @@ class Application extends BaseApplication
         }
 
         $this->addPlugin('Migrations');
-        $this->addPlugin('Authorization');
         // Load more plugins here
     }
 

@@ -15,7 +15,7 @@ class UsuariosController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event) 
     {
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['login', 'add']);    
+        $this->Authentication->allowUnauthenticated(['login', 'logout']);    
     }             
 
     public function setPaginateConditions() 
