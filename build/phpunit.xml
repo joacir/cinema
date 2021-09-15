@@ -2,13 +2,13 @@
 <phpunit backupGlobals="true" backupStaticAttributes="false" convertErrorsToExceptions="false">
 <filter>
 <whitelist>
-<directory suffix=".php">/opt/lampp/apps/cinema/Model</directory>
+<directory suffix=".php">/home/bitnami/apps/cinema/Model</directory>
 </whitelist>
 </filter>
 <logging>
-<log type="coverage-html" target="/opt/lampp/apps/cinema/build/coverage"/>
-<log type="coverage-clover" target="/opt/lampp/apps/cinema/build/logs/clover.xml"/>
-<log type="coverage-crap4j" target="/opt/lampp/apps/cinema/build/logs/crap4j.xml"/>
-<log type="junit" target="/opt/lampp/apps/cinema/build/logs/junit.xml" logIncompleteSkipped="false"/>
+<log type="coverage-html" target="/home/bitnami/apps/cinema/build/coverage"/>
+<log type="coverage-clover" target="/home/bitnami/apps/cinema/build/logs/clover.xml"/>
+<log type="coverage-crap4j" target="/home/bitnami/apps/cinema/build/logs/crap4j.xml"/>
+<log type="junit" target="/home/bitnami/apps/cinema/build/logs/junit.xml" logIncompleteSkipped="false"/>
 </logging>
 </phpunit>
