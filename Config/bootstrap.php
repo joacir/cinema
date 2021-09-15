@@ -21,6 +21,11 @@
  * @since         CakePHP(tm) v 0.10.8.2117
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+if (file_exists('/home/bitnami/.composer/vendor/composer/autoload_real.php')) {
+    require APP . 'Vendor/autoload.php';
+    spl_autoload_unregister(array('App', 'load'));
+    spl_autoload_register(array('App', 'load'), true, true);    
+}
 
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));

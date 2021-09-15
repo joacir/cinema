@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="name-of-project" default="full-build">
  <!-- By default, we assume all tools to be on the $PATH -->
- <property name="pdepend" value="/home/joacir/.composer/vendor/bin/pdepend"/>
- <property name="phpcpd"  value="/home/joacir/.composer/vendor/bin/phpcpd"/>
- <property name="phpcs"   value="/home/joacir/.composer/vendor/bin/phpcs"/>
- <property name="phpdox"  value="/home/joacir/.composer/vendor/bin/phpdox"/>
- <property name="phploc"  value="/home/joacir/.composer/vendor/bin/phploc"/>
- <property name="phpmd"   value="/home/joacir/.composer/vendor/bin/phpmd"/>
- <property name="phpunit" value="/opt/lampp/apps/cinema/Console/cake"/>
- <property name="php"     value="/opt/lampp/bin/php"/>
+ <property name="pdepend" value="/home/bitnami/.composer/vendor/bin/pdepend"/>
+ <property name="phpcpd"  value="/home/bitnami/.composer/vendor/bin/phpcpd.phar"/>
+ <property name="phpcs"   value="/home/bitnami/.composer/vendor/bin/phpcs.phar"/>
+ <property name="phpdox"  value="/home/bitnami/.composer/vendor/bin/phpdox.phar"/>
+ <property name="phploc"  value="/home/bitnami/.composer/vendor/bin/phploc.phar"/>
+ <property name="phpmd"   value="/home/bitnami/.composer/vendor/bin/phpmd"/>
+ <property name="phpunit" value="/home/bitnami/apps/cinema/Console/cake"/>
+ <property name="php"     value="/opt/bitnami/php/bin/php"/>
 
  <!-- Use this when the tools are located as PHARs in ${basedir}/build/tools
  <property name="pdepend" value="${basedir}/build/tools/pdepend.phar"/>
@@ -126,7 +126,7 @@
          unless="phploc.done"
          description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
   <exec executable="${phploc}" taskname="phploc">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--count-tests" />
    <arg path="${basedir}/Model" />
    <arg path="${basedir}/Controller" />
@@ -143,7 +143,7 @@
          depends="prepare"
          description="Measure project size using PHPLOC and log result in CSV and XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phploc}" taskname="phploc">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" /> 
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--count-tests" />
    <arg value="--log-csv" />
    <arg path="${basedir}/build/logs/phploc.csv" />
@@ -164,7 +164,7 @@
          depends="prepare"
          description="Calculate software metrics using PHP_Depend and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${pdepend}" taskname="pdepend">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
    <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
    <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
@@ -178,7 +178,7 @@
          unless="phpmd.done"
          description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
   <exec executable="${phpmd}" taskname="phpmd">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg path="${basedir}/Model,${basedir}/Controller,${basedir}/Console/Command,${basedir}/View/Helper,${basedir}/Test" />
    <arg value="text" />
    <arg path="${basedir}/build/phpmd.xml" />
@@ -192,7 +192,7 @@
          depends="prepare"
          description="Perform project mess detection using PHPMD and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phpmd}" taskname="phpmd">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg path="${basedir}/Model,${basedir}/Controller,${basedir}/Console/Command,${basedir}/View/Helper,${basedir}/Test" />
    <arg value="xml" />
    <arg path="${basedir}/build/phpmd.xml" />
@@ -207,7 +207,7 @@
          unless="phpcs.done"
          description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
   <exec executable="${phpcs}" taskname="phpcs">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--standard=${basedir}/build/phpcs.xml" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
@@ -226,7 +226,7 @@
          depends="prepare"
          description="Find coding standard violations using PHP_CodeSniffer and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phpcs}" output="/dev/null" taskname="phpcs">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--report=checkstyle" />
    <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
    <arg value="--standard=${basedir}/build/phpcs.xml" />
@@ -246,7 +246,7 @@
          unless="phpcpd.done"
          description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
   <exec executable="${phpcpd}" taskname="phpcpd">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg path="${basedir}/Model" />
    <arg path="${basedir}/Controller" />
    <arg path="${basedir}/Test" />
@@ -262,7 +262,7 @@
          depends="prepare"
          description="Find duplicate code using PHPCPD and log result in XML format. Intended for usage within a continuous integration environment.">
   <exec executable="${phpcpd}" taskname="phpcpd">
-   <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="--log-pmd" />
    <arg path="${basedir}/build/logs/pmd-cpd.xml" />
    <arg path="${basedir}/Model" />
@@ -280,7 +280,7 @@
          depends="prepare"
          description="Run unit tests with PHPUnit">
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
-   <env key="PATH" value="/bin:/usr/bin:/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/opt/bitnami/apache/bin:/opt/bitnami/apache2/bin:/opt/bitnami/common/bin:/opt/bitnami/git/bin:/opt/bitnami/gonit/bin:/opt/bitnami/mysql/bin:/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/varnish/bin:/opt/bitnami/varnish/sbin:/opt/bitnami/nami/bin:/usr/local/bin:/usr/bin:/bin" />
    <arg value="test"/>
    <arg value="app"/>
    <arg value="ALL"/>
@@ -299,7 +299,7 @@
          depends="prepare"
          description="Run unit tests with PHPUnit (without generating code coverage reports)">
   <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
-   <env key="PATH" value="/bin:/usr/bin:/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+   <env key="PATH" value="/bin:/usr/bin:/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
    <arg value="test"/>
    <arg value="app"/>
    <arg value="ALL"/>
@@ -319,7 +319,7 @@
          depends="phploc-ci,phpcs-ci,phpmd-ci"
          description="Generate project documentation using phpDox">
   <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox">
-  <env key="PATH" value="/opt/lampp/bin:/home/joacir/.composer/vendor/bin" />
+  <env key="PATH" value="/opt/bitnami/php/bin:/home/bitnami/.composer/vendor/bin" />
   </exec>
   
   <property name="phpdox.done" value="true"/>
