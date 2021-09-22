@@ -4,7 +4,7 @@ App de apoio desenvolvida durante a mentoria de desenvolvimento web utilizando o
 
 ## Pré requisito
 
-- [CakePHP versão 2.x] (https://github.com/cakephp/cakephp/releases/tag/2.10.16)
+- [CakePHP versão 2.10] (https://github.com/cakephp/cakephp/releases/tag/2.10.16)
 
 ## Como instalar
 
