@@ -51,23 +51,23 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
         $this->viewBuilder()->setLayout('bootstrap');
-        $this->viewBuilder()->setHelpers(['Pdf.Report', 'Js']);        
+        $this->viewBuilder()->setHelpers(['Pdf.Report', 'Js']);
     }
 
-    public function index() 
+    public function index()
     {
         $entity = $this->{$this->getModelName()}->newEmptyEntity();
         $this->Authorization->authorize($entity);
         $this->set(compact('entity'));
         $this->setPaginateConditions();
         try {
-            $this->set($this->getControllerName(), $this->paginate());        
+            $this->set($this->getControllerName(), $this->paginate());
         } catch (NotFoundException $e) {
             $this->redirect('/' . $this->getControllerName());
-        }        
+        }
     }
 
-    public function add() 
+    public function add()
     {
         $entity = $this->{$this->getModelName()}->newEmptyEntity();
         $this->Authorization->authorize($entity);
@@ -81,7 +81,7 @@ class AppController extends Controller
         $this->set(compact('entity'));
     }
 
-    public function edit($id = null) 
+    public function edit($id = null)
     {
         $entity = $this->getEditEntity($id);
         $this->Authorization->authorize($entity);
@@ -95,14 +95,14 @@ class AppController extends Controller
         $this->set(compact('entity'));
     }
 
-    public function view($id = null) 
+    public function view($id = null)
     {
         $entity = $this->getEditEntity($id);
         $this->Authorization->authorize($entity);
         $this->set(compact('entity'));
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $this->request->allowMethod(['post', 'delete']);
         $entity = $this->{$this->getModelName()}->get($id);
@@ -121,15 +121,15 @@ class AppController extends Controller
         $this->Authorization->authorize($entity);
         $this->viewBuilder()->setLayout('ajax');
         $this->response = $this->response->withType('pdf');
-        $this->set($this->getControllerName(), $this->paginate());        
+        $this->set($this->getControllerName(), $this->paginate());
     }
 
-    public function getControllerName() 
+    public function getControllerName()
     {
         return \Cake\Utility\Inflector::underscore($this->request->getParam('controller'));
     }
 
-    public function getModelName() 
+    public function getModelName()
     {
         return $this->request->getParam('controller');
     }
@@ -137,5 +137,5 @@ class AppController extends Controller
     public function setFilmes() {
         $this->set('filmes', $this->{$this->getModelName()}->Filmes->find('list', ['conditions' => 'Filmes.deleted IS NULL']));
     }
-    
+
 }

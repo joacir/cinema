@@ -9,16 +9,16 @@ class UsuariosController extends AppController
         'fields' => ['id', 'nome'],
         'conditions' => ['Usuarios.deleted IS NULL'],
         'limit' => 10,
-        'order' => ['nome' => 'asc']   
+        'order' => ['nome' => 'asc']
     ];
 
-    public function beforeFilter(\Cake\Event\EventInterface $event) 
+    public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['login', 'logout']);    
-    }             
+        $this->Authentication->allowUnauthenticated(['login', 'logout']);
+    }
 
-    public function setPaginateConditions() 
+    public function setPaginateConditions()
     {
         $nome = '';
         if ($this->request->is('post')) {
@@ -32,15 +32,15 @@ class UsuariosController extends AppController
         }
     }
 
-    public function getEditEntity($id) 
-    {        
+    public function getEditEntity($id)
+    {
         $fields = ['id', 'nome', 'login'];
         $contain = [];
-        
+
         return $this->Usuarios->get($id, compact('fields', 'contain'));
     }
-    
-    public function login() 
+
+    public function login()
     {
         $this->Authorization->skipAuthorization();
         $this->viewBuilder()->setLayout('login');
@@ -52,16 +52,16 @@ class UsuariosController extends AppController
             return $this->redirect($target);
         }
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->bootstrap(__('Usuário ou senha incorretos'), ['key' => 'danger']);            
-        }        
+            $this->Flash->bootstrap(__('Usuário ou senha incorretos'), ['key' => 'danger']);
+        }
     }
 
-    public function logout() 
+    public function logout()
     {
         $this->Authorization->skipAuthorization();
         $this->Authentication->logout();
-        
-        return $this->redirect('/');    
+
+        return $this->redirect('/');
     }
 
 }
