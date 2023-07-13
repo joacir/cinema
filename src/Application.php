@@ -34,6 +34,7 @@ use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
+use Cake\Routing\Router;
 use Psr\Http\Message\ResponseInterface;
 /**
  * Application setup class.
@@ -41,8 +42,8 @@ use Psr\Http\Message\ResponseInterface;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication 
-    implements AuthenticationServiceProviderInterface, 
+class Application extends BaseApplication
+    implements AuthenticationServiceProviderInterface,
     AuthorizationServiceProviderInterface
 {
     /**
@@ -56,7 +57,7 @@ class Application extends BaseApplication
 
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-        
+
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
 
@@ -134,10 +135,10 @@ class Application extends BaseApplication
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
-            'unauthenticatedRedirect' => '/cinema4/usuarios/login',
+            'unauthenticatedRedirect' =>  Router::url('/usuarios/login'),
             'queryParam' => 'redirect',
         ]);
-    
+
         // Load identifiers, ensure we check email and password fields
         $authenticationService->loadIdentifier('Authentication.Password', [
             'fields' => [
@@ -147,9 +148,9 @@ class Application extends BaseApplication
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Usuarios'
-            ],        
+            ],
         ]);
-    
+
         // Load the authenticators, you want session first
         $authenticationService->loadAuthenticator('Authentication.Session');
         // Configure form data check to pick email and password
@@ -158,14 +159,14 @@ class Application extends BaseApplication
                 'username' => 'login',
                 'password' => 'senha',
             ],
-            'loginUrl' => '/cinema4/usuarios/login',
+            'loginUrl' => Router::url('/usuarios/login'),
         ]);
-    
+
         return $authenticationService;
-    }    
+    }
 
     public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
-    {   
+    {
         $resolver = new OrmResolver();
 
         return new AuthorizationService($resolver);
