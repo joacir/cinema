@@ -10,8 +10,6 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class AtorsFixture extends TestFixture
 {
-    public $import = ['table' => 'ators'];    
-
     public function init(): void
     {
         $this->records = [

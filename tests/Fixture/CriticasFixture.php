@@ -10,8 +10,6 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class CriticasFixture extends TestFixture
 {
-    public $import = ['table' => 'criticas'];    
-
     public function init(): void
     {
         $this->records = [

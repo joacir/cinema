@@ -11,12 +11,6 @@ use Cake\TestSuite\Fixture\TestFixture;
 class GenerosFixture extends TestFixture
 {
     /**
-     * Import
-     *
-     * @var array
-     */
-    public $import = ['table' => 'generos'];    
-    /**
      * Init method
      *
      * @return void
