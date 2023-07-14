@@ -10,8 +10,6 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class FilmesFixture extends TestFixture
 {
-    public $import = ['table' => 'filmes'];    
-    
     public function init(): void
     {
         $this->records = [

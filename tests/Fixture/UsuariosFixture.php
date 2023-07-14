@@ -10,8 +10,6 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class UsuariosFixture extends TestFixture
 {
-    public $import = ['table' => 'usuarios'];    
-
     public function init(): void
     {
         $this->records = [
